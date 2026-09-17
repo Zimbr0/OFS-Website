@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ExpandableTile } from "@/components/ExpandableTile";
+import { Tile } from "@/components/Tile";
 import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { SectionIntro } from "@/components/SectionIntro";
 import { iconMap } from "@/components/icons";
@@ -26,9 +26,9 @@ export default function WirPage() {
           {leitsaetzeFull.map((item) => {
             const Icon = iconMap[item.icon];
             return (
-              <ExpandableTile key={item.title} icon={<Icon />} title={item.title} detail={item.detail}>
+              <Tile key={item.title} icon={<Icon />} title={item.title}>
                 {item.text}
-              </ExpandableTile>
+              </Tile>
             );
           })}
         </div>
@@ -62,9 +62,9 @@ export default function WirPage() {
           {schwerpunkteFull.map((item) => {
             const Icon = iconMap[item.icon];
             return (
-              <ExpandableTile key={item.title} icon={<Icon />} title={item.title} detail={item.detail}>
+              <Tile key={item.title} icon={<Icon />} title={item.title}>
                 {item.text}
-              </ExpandableTile>
+              </Tile>
             );
           })}
         </div>

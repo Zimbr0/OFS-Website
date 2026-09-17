@@ -3,15 +3,13 @@
 
 export const hero = {
   eyebrow: "Grundschule Unna · Zum Osterfeld 9",
-  title: "Das ICH entwickeln, das WIR stärken, das MORGEN mitgestalten.",
+  title: "ICH entwickeln, WIR stärken, MORGEN mitgestalten.",
   intro:
     "Die Osterfeldschule ist die einzige komplett ebenerdige, barrierefreie Grundschule Unnas – mit MINT-Schwerpunkt, rund 146 Kindern in sieben jahrgangsbezogenen Klassen und einem Kollegium, das jedes Kind als wertvollen Teil der Gemeinschaft sieht.",
-  stats: ["146 Schüler:innen", "7 Klassen", "MINT-Schwerpunkt", "barrierefrei"],
 };
 
 export const factSections = [
   {
-    number: "01",
     title: "Unsere Schule",
     text: "Im Doppeldorf gelegen, nahe eines Landschaftsschutzgebiets, mit eigener Bushaltestelle, Turnhalle und Sportplatz (SSV Mühlhausen) direkt nebenan. Wir unterrichten jahrgangsbezogen in sieben Klassen und nehmen auch Inklusionskinder und Kinder aus Zuwandererfamilien auf.",
     ctaLabel: "Mehr über die Schule",
@@ -19,7 +17,6 @@ export const factSections = [
     imageLabel: "Foto: Schulgebäude / Schulhof einfügen",
   },
   {
-    number: "02",
     title: "Unser Kollegium",
     text: "Unser Kollegium besteht aus einem breit aufgestellten Team herzlicher Menschen mit verschiedenen Kompetenzen und Steckenpferden. Gelegentlich verstärken uns Studierende im Praxissemester und Lehramtsanwärter:innen. Inklusionsfachkräfte des SPI Unna unterstützen Kinder mit Förderbedarf im Alltag.",
     ctaLabel: "Team kennenlernen",
@@ -27,7 +24,6 @@ export const factSections = [
     imageLabel: "Foto: Kollegium Schuljahr 2025/26",
   },
   {
-    number: "03",
     title: "Unsere Betreuung",
     text: "Von der Frühbetreuung ab 7 Uhr über die Kurzbetreuung bis zur OGS „Schülerbande“ mit Mittagessen, Hausaufgabenzeit und AGs bis 16 Uhr – für jede Familie das passende Modell, getragen von einem festen, engagierten Team.",
     ctaLabel: "Betreuung entdecken",
@@ -47,24 +43,30 @@ export const partners = [
   "Bäckerei Höltermann",
 ];
 
-// Zitat im Dawn-Abschnitt, anstelle der früheren Statistik.
+// Zitat direkt unter dem Hero.
 export const leitspruch = {
-  eyebrow: "Unsere Haltung",
   quote:
     "Wie die Welt von morgen aussehen wird, hängt im großen Maße von der Einbildungskraft derer ab, die gerade lesen lernen.",
   autor: "Astrid Lindgren",
 };
 
-// Echte Erfolge aus dem Schulleben statt erfundener Testimonials.
-export const erfolge = {
-  featured: {
-    badge: "Stadtmeisterschaften",
-    quote: "Stadtmeister im Handball – und in einer weiteren Saison Vizestadtmeister.",
-    text: "Dazu starke Platzierungen bei den Stadtmeisterschaften Schwimmen und Leichtathletik.",
+// Aktuelles auf der Startseite – im gleichen Aufbau wie die Fact-Sections
+// (Bild + Text + Datum), echte Ereignisse statt erfundener Testimonials.
+export const aktuellesHighlights = [
+  {
+    title: "Stadtmeister im Handball",
+    datum: "[Datum ergänzen]",
+    text: "Unsere Mannschaft wurde Stadtmeister im Handball – und in einer weiteren Saison Vizestadtmeister. Dazu starke Platzierungen bei den Stadtmeisterschaften Schwimmen und Leichtathletik.",
+    ctaLabel: "Mehr aus dem Schulleben",
+    ctaHref: "/aktuelles",
+    imageLabel: "Foto: Stadtmeisterschaften Handball",
   },
-  card: {
-    badge: "Leseförderung",
+  {
     title: "Vorlesewettbewerb",
+    datum: "[Datum ergänzen]",
     text: "Jedes Jahr messen sich die besten Vorleser:innen jeder Klasse – in Kooperation mit der Buchhandlung Hornung.",
+    ctaLabel: "Mehr aus dem Schulleben",
+    ctaHref: "/aktuelles",
+    imageLabel: "Foto: Vorlesewettbewerb",
   },
-};
+];

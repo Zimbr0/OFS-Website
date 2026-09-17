@@ -9,6 +9,7 @@ type ButtonProps = {
   size?: "default" | "sm";
   external?: boolean;
   style?: CSSProperties;
+  onClick?: () => void;
 };
 
 export function Button({
@@ -18,6 +19,7 @@ export function Button({
   size = "default",
   external = false,
   style,
+  onClick,
 }: ButtonProps) {
   const className = [
     "btn",
@@ -36,14 +38,14 @@ export function Button({
 
   if (external) {
     return (
-      <a href={href} className={className} style={style} target="_blank" rel="noreferrer">
+      <a href={href} className={className} style={style} target="_blank" rel="noreferrer" onClick={onClick}>
         {content}
       </a>
     );
   }
 
   return (
-    <Link href={href} className={className} style={style}>
+    <Link href={href} className={className} style={style} onClick={onClick}>
       {content}
     </Link>
   );

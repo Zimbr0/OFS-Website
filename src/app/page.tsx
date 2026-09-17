@@ -5,7 +5,7 @@ import { Marquee } from "@/components/Marquee";
 import { Reveal } from "@/components/Reveal";
 import { SectionIntro } from "@/components/SectionIntro";
 import { AccessibleIcon } from "@/components/icons";
-import { erfolge, factSections, hero, leitspruch, partners } from "@/content/home";
+import { aktuellesHighlights, factSections, hero, leitspruch, partners } from "@/content/home";
 import { termine } from "@/content/termine";
 
 export default function HomePage() {
@@ -18,21 +18,21 @@ export default function HomePage() {
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <span className="eyebrow">{hero.eyebrow}</span>
           <h1 className="h1">
-            Das ICH entwickeln, das WIR stärken,{" "}
-            <span style={{ color: "var(--c-primary)" }}>das MORGEN mitgestalten.</span>
+            ICH entwickeln,
+            <br />
+            WIR stärken,
+            <br />
+            <span style={{ color: "var(--c-primary)" }}>MORGEN mitgestalten.</span>
           </h1>
           <p className="body-l" style={{ maxWidth: 520 }}>
             {hero.intro}
           </p>
           <div className="hero-actions" style={{ marginTop: 4 }}>
             <Button href="/wir" variant="primary">
-              Wir kennenlernen
+              Lerne uns kennen
             </Button>
-            <Button href="/kontakt">Anmeldung & Kontakt</Button>
+            <Button href="/kontakt">Kontakt</Button>
           </div>
-          <Badge live style={{ marginTop: 8 }}>
-            146 Schüler:innen · 7 Klassen · MINT-Schwerpunkt
-          </Badge>
         </div>
 
         <div style={{ position: "relative" }}>
@@ -105,157 +105,96 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ZITAT */}
+      <section className="wrap" style={{ paddingBottom: 56 }}>
+        <div className="quote-panel">
+          <p className="quote-panel-text">&bdquo;{leitspruch.quote}&ldquo;</p>
+          <p className="body-m" style={{ marginTop: 18 }}>
+            {leitspruch.autor}
+          </p>
+        </div>
+      </section>
+
       <div className="wrap">
         <hr className="divider" />
       </div>
 
       {/* FACT SECTIONS */}
       {factSections.map((section, index) => (
-        <section
-          key={section.number}
-          className={`wrap split section${index % 2 === 1 ? " split-reverse" : ""}`}
-        >
-          {index % 2 === 0 ? (
-            <>
-              <PlaceholderImage label={section.imageLabel} height={420} />
-              <FactSectionText section={section} />
-            </>
-          ) : (
-            <>
-              <FactSectionText section={section} />
-              <PlaceholderImage label={section.imageLabel} height={420} />
-            </>
-          )}
-        </section>
+        <AltSection key={section.title} index={index} {...section} />
       ))}
 
-      {/* DAWN / ZITAT */}
-      <section className="section-dawn" style={{ padding: "96px 0" }}>
-        <div className="wrap" style={{ maxWidth: 760, textAlign: "center", margin: "0 auto" }}>
-          <span className="eyebrow" style={{ color: "rgba(255,255,255,0.85)", justifyContent: "center" }}>
-            {leitspruch.eyebrow}
-          </span>
-          <blockquote
-            className="quote-serif"
-            style={{ fontSize: "clamp(24px, 3.4vw, 34px)", color: "#fff", margin: "20px 0" }}
-          >
-            &bdquo;{leitspruch.quote}&ldquo;
-          </blockquote>
-          <p className="body-m" style={{ color: "rgba(255,255,255,0.78)" }}>
-            {leitspruch.autor}
-          </p>
-        </div>
-      </section>
+      <div className="wrap">
+        <hr className="divider" />
+      </div>
 
       {/* AKTUELLES */}
-      <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 36 }}>
+      <section className="wrap section" style={{ paddingBottom: 0, display: "flex", flexDirection: "column", gap: 8 }}>
         <SectionIntro eyebrow="Aus dem Schulleben" title="Aktuelles" />
-        <div className="split" style={{ gap: 20 }}>
-          <div
-            style={{
-              background: "var(--c-ink)",
-              borderRadius: "var(--radius-l)",
-              padding: 36,
-              display: "flex",
-              flexDirection: "column",
-              gap: 18,
-              color: "#fff",
-            }}
-          >
-            <Badge style={{ background: "rgba(255,255,255,0.12)", color: "#fff" }}>
-              {erfolge.featured.badge}
-            </Badge>
-            <div className="quote-serif" style={{ fontSize: 24, color: "#fff" }}>
-              {erfolge.featured.quote}
-            </div>
-            <p className="body-m" style={{ color: "rgba(255,255,255,0.7)" }}>
-              {erfolge.featured.text}
-            </p>
-          </div>
-          <div className="card">
-            <div className="card-body">
-              <Badge>{erfolge.card.badge}</Badge>
-              <div className="h3">{erfolge.card.title}</div>
-              <p className="body-m">{erfolge.card.text}</p>
-            </div>
-          </div>
-        </div>
-        <Button href="/aktuelles">Alle Beiträge ansehen</Button>
       </section>
-
-      {/* FINAL CTA */}
-      <section className="wrap" style={{ paddingBottom: 72 }}>
-        <div
-          className="split"
-          style={{
-            borderRadius: "var(--radius-l)",
-            background: "var(--gradient-morgen)",
-            padding: 56,
-            gap: 40,
-            color: "#fff",
-          }}
-        >
-          <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-            <h2 className="h2" style={{ color: "#fff", fontSize: 36 }}>
-              Lernt uns persönlich kennen.
-            </h2>
-            <p className="body-l" style={{ maxWidth: 480, color: "rgba(255,255,255,0.85)" }}>
-              Beim nächsten Tag der offenen Tür oder jederzeit nach Absprache – wir freuen uns auf euch.
-            </p>
-            <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-              <Button href="/kontakt" variant="primary">
-                Termin vereinbaren
-              </Button>
-            </div>
-          </div>
-          <div style={{ display: "flex", gap: 28 }}>
-            <div>
-              <div className="h2" style={{ color: "#fff", fontSize: 32 }}>
-                146
-              </div>
-              <p className="body-m" style={{ color: "rgba(255,255,255,0.75)" }}>
-                Schüler:innen
-              </p>
-            </div>
-            <div>
-              <div className="h2" style={{ color: "#fff", fontSize: 32 }}>
-                7
-              </div>
-              <p className="body-m" style={{ color: "rgba(255,255,255,0.75)" }}>
-                Klassen
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {aktuellesHighlights.map((item, index) => (
+        <AltSection key={item.title} index={index} meta={item.datum} {...item} />
+      ))}
 
       {/* MARQUEE / SPONSOREN */}
-      <section style={{ padding: "36px 0 0" }}>
-        <p className="body-m" style={{ textAlign: "center", marginBottom: 18 }}>
-          Getragen von starken Partnern aus Unna
-        </p>
+      <section className="marquee-band">
+        <div className="wrap" style={{ textAlign: "center", marginBottom: 22 }}>
+          <span className="eyebrow">Starke Partner aus Unna</span>
+        </div>
         <Marquee items={partners} />
       </section>
     </>
   );
 }
 
-function FactSectionText({
-  section,
+function AltSection({
+  index,
+  title,
+  text,
+  ctaLabel,
+  ctaHref,
+  imageLabel,
+  meta,
 }: {
-  section: { number: string; title: string; text: string; ctaLabel: string; ctaHref: string };
+  index: number;
+  title: string;
+  text: string;
+  ctaLabel: string;
+  ctaHref: string;
+  imageLabel: string;
+  meta?: string;
 }) {
-  return (
+  const reverse = index % 2 === 1;
+
+  const textBlock = (
     <Reveal>
       <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-        <span className="section-num">{section.number}</span>
-        <h2 className="h2">{section.title}</h2>
+        {meta ? <Badge>{meta}</Badge> : null}
+        <h2 className="h2">{title}</h2>
         <p className="body-l" style={{ maxWidth: 560 }}>
-          {section.text}
+          {text}
         </p>
-        <Button href={section.ctaHref}>{section.ctaLabel}</Button>
+        <Button href={ctaHref}>{ctaLabel}</Button>
       </div>
     </Reveal>
+  );
+
+  const imageBlock = <PlaceholderImage label={imageLabel} height={420} />;
+
+  return (
+    <section className={`wrap split section${reverse ? " split-reverse" : ""}`}>
+      {reverse ? (
+        <>
+          {textBlock}
+          {imageBlock}
+        </>
+      ) : (
+        <>
+          {imageBlock}
+          {textBlock}
+        </>
+      )}
+    </section>
   );
 }
 

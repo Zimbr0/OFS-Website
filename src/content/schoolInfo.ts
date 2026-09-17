@@ -5,7 +5,7 @@
 
 export const schoolInfo = {
   name: "Osterfeldschule Unna",
-  motto: "Das ICH entwickeln, das WIR stärken, das MORGEN mitgestalten.",
+  motto: "ICH entwickeln, WIR stärken, MORGEN mitgestalten.",
   address: {
     street: "Zum Osterfeld 9",
     zipCity: "59425 Unna",

@@ -6,21 +6,14 @@
   --c-ink-soft: #4b5b52;
   --c-line: #e3ece6;
 
-  /* Primärfarbe: Orange (aus dem ersten Design übernommen) – für Buttons,
-     Links, Live-Indikatoren. */
-  --c-primary: #ff7a1a;
-  --c-primary-deep: #e0620a;
-  --c-primary-soft: #fdeedd;
+  /* Primärfarbe: Grün – für Buttons, Links, Live-Indikatoren. */
+  --c-primary: #2e7d63;
+  --c-primary-deep: #1f5c47;
+  --c-primary-soft: #e3efe8;
 
-  /* Zweitfarbe: Grün (ebenfalls aus dem ersten Design) – für Eyebrows,
-     Icon-Flächen, informative Akzente. */
-  --c-secondary: #2e7d63;
-  --c-secondary-soft: #e3efe8;
-
-  --c-accent-a: var(--c-primary);
-  --c-accent-b: var(--c-primary-deep);
-
-  --gradient-morgen: linear-gradient(135deg, #241206 0%, #ff7a1a 55%, #ffc94d 100%);
+  /* Zweitfarbe: Orange – für Eyebrows, Icon-Flächen, informative Akzente. */
+  --c-secondary: #ff7a1a;
+  --c-secondary-soft: #fdeedd;
 
   --radius-l: 24px;
   --radius-m: 16px;
@@ -29,7 +22,6 @@
   --max-width: 1240px;
 
   --font-sans: var(--font-jakarta), system-ui, sans-serif;
-  --font-serif: var(--font-newsreader), Georgia, serif;
 }
 
 * {
@@ -127,19 +119,6 @@ h3 {
   line-height: 1.6;
   color: var(--c-ink-soft);
   margin: 0;
-}
-
-.quote-serif {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 500;
-}
-
-.section-num {
-  font-size: 17px;
-  font-weight: 800;
-  color: var(--c-ink-soft);
-  opacity: 0.5;
 }
 
 /* ---------- buttons ---------- */
@@ -348,14 +327,24 @@ h3 {
   padding-bottom: 48px;
 }
 
-.section-dawn {
-  background: var(--gradient-morgen);
-  color: #fff;
+.quote-panel {
+  background: rgba(46, 125, 99, 0.07);
+  border: 1px solid rgba(46, 125, 99, 0.18);
+  border-radius: var(--radius-l);
+  padding: 48px 40px;
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto;
 }
 
-.section-dawn .body-l,
-.section-dawn .body-m {
-  color: rgba(255, 255, 255, 0.78);
+.quote-panel-text {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-style: normal;
+  font-size: clamp(21px, 2.6vw, 28px);
+  line-height: 1.45;
+  color: var(--c-ink);
+  margin: 0;
 }
 
 .divider {
@@ -377,10 +366,6 @@ h3 {
     grid-template-columns: 1fr;
     gap: 32px;
   }
-}
-
-.split-reverse {
-  grid-template-columns: 1fr 1fr;
 }
 
 @media (max-width: 800px) {
@@ -438,30 +423,6 @@ h3 {
   color: var(--c-ink-soft);
 }
 
-.main-nav {
-  display: flex;
-  gap: 28px;
-}
-
-@media (max-width: 900px) {
-  .main-nav {
-    display: none;
-  }
-}
-
-.nav-link {
-  font-size: 15px;
-  font-weight: 700;
-  padding: 8px 2px;
-  color: var(--c-ink-soft);
-  transition: color 0.15s ease;
-}
-
-.nav-link:hover,
-.nav-link.active {
-  color: var(--c-primary-deep);
-}
-
 @media (max-width: 900px) {
   .header-cta {
     display: none;
@@ -469,7 +430,7 @@ h3 {
 }
 
 .menu-toggle {
-  display: none;
+  display: flex;
   width: 40px;
   height: 40px;
   align-items: center;
@@ -479,12 +440,6 @@ h3 {
   border: none;
   color: var(--c-ink);
   cursor: pointer;
-}
-
-@media (max-width: 900px) {
-  .menu-toggle {
-    display: flex;
-  }
 }
 
 /* ---------- mobile nav drawer (Slide-in von rechts, wie bei der Vorlage) ---------- */
@@ -680,6 +635,13 @@ h3 {
 
 /* ---------- marquee ---------- */
 
+.marquee-band {
+  padding: 48px 0;
+  background: var(--c-mint);
+  border-top: 1px solid var(--c-line);
+  border-bottom: 1px solid var(--c-line);
+}
+
 .marquee {
   overflow: hidden;
   position: relative;
@@ -697,11 +659,15 @@ h3 {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 0 36px;
+  padding: 10px 22px;
+  margin: 0 10px;
   font-weight: 700;
-  font-size: 16px;
-  color: var(--c-ink-soft);
+  font-size: 15px;
+  color: var(--c-ink);
   white-space: nowrap;
+  background: #fff;
+  border: 1.5px solid var(--c-line);
+  border-radius: var(--radius-pill);
 }
 
 /* ---------- reveal on scroll ---------- */
@@ -807,6 +773,9 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+
+.page-intro p {
   max-width: 720px;
 }
 

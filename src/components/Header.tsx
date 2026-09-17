@@ -48,18 +48,10 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="main-nav" aria-label="Hauptnavigation">
-          {mainNav.map((item) => (
-            <Link key={item.href} href={item.href} className="nav-link">
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <span className="header-cta">
             <Button href="/kontakt" variant="primary" size="sm">
-              Kontakt aufnehmen
+              Kontakt
             </Button>
           </span>
           <button
@@ -118,8 +110,13 @@ export function Header() {
           </nav>
 
           <div className="nav-drawer-footer">
-            <Button href="/kontakt" variant="primary" style={{ width: "100%", justifyContent: "center" }}>
-              Kontakt aufnehmen
+            <Button
+              href="/kontakt"
+              variant="primary"
+              style={{ width: "100%", justifyContent: "center" }}
+              onClick={() => setOpen(false)}
+            >
+              Kontakt
             </Button>
           </div>
         </div>

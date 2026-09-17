@@ -1,25 +1,6 @@
-// Inhalte für die Seite "Termine". "Heute an der Schule" zeigt den aktuellen
-// Tag, darunter folgen die nächsten anstehenden Termine für Eltern. Echte
-// Kalenderdaten liegen noch nicht vor – Daten sind bewusst als Platzhalter
-// markiert und können ersetzt werden, sobald sie feststehen.
-
-export const heuteAnDerSchule = [
-  {
-    titel: "Klassenrat 3b",
-    text: "Thema: Frühlingsfensterbilder für den Flur",
-    live: false,
-  },
-  {
-    titel: "Forschertag Klasse 2",
-    text: "Experimente zu den vier Elementen",
-    live: false,
-  },
-  {
-    titel: "OGS „Schülerbande“",
-    text: "Rhythmen & Töne · 14:00–16:00",
-    live: true,
-  },
-];
+// Inhalte für die Seite "Termine": die nächsten anstehenden Termine für
+// Eltern. Echte Kalenderdaten liegen noch nicht vor – Daten sind bewusst als
+// Platzhalter markiert und können ersetzt werden, sobald sie feststehen.
 
 export type Termin = {
   datum: string;

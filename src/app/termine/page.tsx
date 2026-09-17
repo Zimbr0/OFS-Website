@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Badge } from "@/components/Badge";
-import { heuteAnDerSchule, termine, termineHinweis } from "@/content/termine";
+import { termine, termineHinweis } from "@/content/termine";
 
 export const metadata: Metadata = { title: "Termine" };
 
@@ -16,38 +16,6 @@ export default function TerminePage() {
           Von der heutigen Schulwoche bis zu den nächsten Festen im Jahr – hier finden Eltern alle
           anstehenden Termine der Osterfeldschule.
         </p>
-      </div>
-
-      {/* HEUTE AN DER SCHULE */}
-      <section className="wrap" style={{ paddingBottom: 48 }}>
-        <div className="card" style={{ maxWidth: 640 }}>
-          <div className="card-body" style={{ gap: 18 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <span className="h3" style={{ fontSize: 17 }}>
-                Heute an der Schule
-              </span>
-              <Badge live>LIVE</Badge>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              {heuteAnDerSchule.map((eintrag) => (
-                <div className="check-item" key={eintrag.titel}>
-                  <span className="check-icon">
-                    {eintrag.live ? <DotIcon /> : <CheckIcon />}
-                  </span>
-                  <span className="body-m">
-                    <strong style={{ color: "var(--c-ink)" }}>{eintrag.titel}</strong>
-                    <br />
-                    {eintrag.text}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="wrap">
-        <hr className="divider" />
       </div>
 
       {/* TERMINE LISTE */}
@@ -78,21 +46,5 @@ export default function TerminePage() {
         <p className="body-m" style={{ maxWidth: 680 }}>{termineHinweis}</p>
       </div>
     </>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M5 13l4 4L19 7" />
-    </svg>
-  );
-}
-
-function DotIcon() {
-  return (
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-      <circle cx="12" cy="12" r="8" />
-    </svg>
   );
 }
