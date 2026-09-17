@@ -25,9 +25,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         {/* Ohne JavaScript kann der Scroll-Reveal (Reveal-Komponente) nie
             auf "sichtbar" umschalten – ohne dieses Fallback bliebe der
-            Inhalt dauerhaft unsichtbar. */}
+            Inhalt dauerhaft unsichtbar. Genauso verhindert .hero-line ohne
+            JavaScript kein Umbrechen mehr aktiv skaliert wird – dann lieber
+            normal umbrechen lassen, statt über den Rand hinauszulaufen. */}
         <noscript>
-          <style>{".reveal { opacity: 1 !important; transform: none !important; }"}</style>
+          <style>
+            {".reveal { opacity: 1 !important; transform: none !important; } " +
+              ".hero-line { white-space: normal !important; }"}
+          </style>
         </noscript>
         <Header />
         <main>{children}</main>
