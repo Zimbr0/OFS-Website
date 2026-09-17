@@ -4,6 +4,7 @@ import { Tile } from "@/components/Tile";
 import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { SectionIntro } from "@/components/SectionIntro";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { SproutGrowth } from "@/components/SproutGrowth";
 import { iconMap } from "@/components/icons";
 import {
   betreuungCards,
@@ -22,7 +23,10 @@ export default function HomePage() {
       <section className="wrap split section" style={{ paddingTop: 56 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <span className="eyebrow">{hero.eyebrow}</span>
-          <h1 className="h1">{hero.title}</h1>
+          <h1 className="h1">
+            {hero.title}
+            <SproutGrowth />
+          </h1>
           <p className="body-l" style={{ maxWidth: 520 }}>
             {hero.intro}
           </p>
