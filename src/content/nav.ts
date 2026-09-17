@@ -5,6 +5,7 @@ export const mainNav = [
   { href: "/wir", label: "Wir" },
   { href: "/unsere-klassen", label: "Unsere Klassen" },
   { href: "/betreuung", label: "Betreuung" },
+  { href: "/termine", label: "Termine" },
   { href: "/eltern-a-z", label: "Eltern A–Z" },
   { href: "/aktuelles", label: "Aktuelles" },
 ] as const;

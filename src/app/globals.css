@@ -6,19 +6,21 @@
   --c-ink-soft: #4b5b52;
   --c-line: #e3ece6;
 
-  --c-primary: #16b364;
-  --c-primary-deep: #0a7e46;
-  --c-mint-light: #7de6ac;
-  --c-amber: #92600f;
-  --c-amber-bg: #fbf3e2;
+  /* Primärfarbe: Orange (aus dem ersten Design übernommen) – für Buttons,
+     Links, Live-Indikatoren. */
+  --c-primary: #ff7a1a;
+  --c-primary-deep: #e0620a;
+  --c-primary-soft: #fdeedd;
 
-  /* Aliase, damit ältere Seiten ohne Änderung im neuen Farbschema bleiben */
-  --c-secondary: var(--c-primary-deep);
-  --c-secondary-soft: var(--c-mint);
+  /* Zweitfarbe: Grün (ebenfalls aus dem ersten Design) – für Eyebrows,
+     Icon-Flächen, informative Akzente. */
+  --c-secondary: #2e7d63;
+  --c-secondary-soft: #e3efe8;
+
   --c-accent-a: var(--c-primary);
   --c-accent-b: var(--c-primary-deep);
 
-  --gradient-morgen: linear-gradient(135deg, #10241a 0%, #16b364 55%, #7de6ac 100%);
+  --gradient-morgen: linear-gradient(135deg, #241206 0%, #ff7a1a 55%, #ffc94d 100%);
 
   --radius-l: 24px;
   --radius-m: 16px;
@@ -71,14 +73,14 @@ img {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--c-primary-deep);
+  color: var(--c-secondary);
 }
 
 .eyebrow::before {
   content: "";
   width: 18px;
   height: 1.5px;
-  background: var(--c-primary);
+  background: var(--c-secondary);
   display: inline-block;
   flex-shrink: 0;
 }
@@ -189,11 +191,11 @@ h3 {
   gap: 7px;
   padding: 6px 13px;
   border-radius: var(--radius-pill);
-  background: var(--c-mint);
+  background: var(--c-secondary-soft);
   border: none;
   font-size: 13px;
   font-weight: 700;
-  color: var(--c-primary-deep);
+  color: var(--c-secondary);
   width: fit-content;
 }
 
@@ -239,8 +241,8 @@ h3 {
   width: 46px;
   height: 46px;
   border-radius: 13px;
-  background: var(--c-mint);
-  color: var(--c-primary-deep);
+  background: var(--c-secondary-soft);
+  color: var(--c-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -257,8 +259,8 @@ h3 {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: var(--c-mint);
-  color: var(--c-primary-deep);
+  background: var(--c-secondary-soft);
+  color: var(--c-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -579,7 +581,7 @@ h3 {
 
 .site-footer {
   padding: 72px 0 32px;
-  background: var(--c-mint);
+  background: var(--c-primary-soft);
 }
 
 .footer-grid {
@@ -658,8 +660,8 @@ h3 {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: var(--c-mint);
-  color: var(--c-primary-deep);
+  background: var(--c-secondary-soft);
+  color: var(--c-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -700,37 +702,6 @@ h3 {
   font-size: 16px;
   color: var(--c-ink-soft);
   white-space: nowrap;
-}
-
-/* ---------- stat bars (animated growth) ---------- */
-
-.stat-bar-row {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.stat-bar-label {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.stat-bar-track {
-  height: 10px;
-  border-radius: var(--radius-pill);
-  background: var(--c-line);
-  overflow: hidden;
-}
-
-.stat-bar-fill {
-  height: 100%;
-  border-radius: var(--radius-pill);
-  background: var(--c-primary);
-  transform-origin: left;
-  transform: scaleX(0);
-  animation: os-bar-grow-x 1.1s cubic-bezier(0.22, 0.9, 0.3, 1) forwards;
 }
 
 /* ---------- reveal on scroll ---------- */
@@ -789,15 +760,6 @@ h3 {
   }
 }
 
-@keyframes os-bar-grow-x {
-  0% {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
 @keyframes os-scroll-x {
   0% {
     transform: translateX(0);
@@ -818,10 +780,6 @@ h3 {
   .badge-dot,
   .marquee-track {
     animation: none !important;
-  }
-  .stat-bar-fill {
-    animation: none !important;
-    transform: scaleX(1);
   }
   .nav-drawer-backdrop,
   .nav-drawer {

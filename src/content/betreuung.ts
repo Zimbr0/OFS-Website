@@ -19,7 +19,28 @@ export const betreuungsmodelle = [
 export const ogs = {
   name: "Schülerbande",
   herkunft: "Der Name wurde von den Kindern selbst gewählt.",
-  werte: ["Gemeinschaft", "Vielfalt & Inklusion", "Vertrauen & Respekt", "Kommunikation"],
+  werte: [
+    {
+      icon: "users" as const,
+      title: "Gemeinschaft",
+      text: "Wir erleben den Alltag als „Schülerbande“ gemeinsam – jahrgangsübergreifend und mit festen Bezugspersonen.",
+    },
+    {
+      icon: "heart" as const,
+      title: "Vielfalt & Inklusion",
+      text: "Jedes Kind bringt seine eigenen Stärken mit – wir gestalten die OGS so, dass alle mitmachen können.",
+    },
+    {
+      icon: "shield" as const,
+      title: "Vertrauen & Respekt",
+      text: "Ein wertschätzender, verlässlicher Umgang miteinander ist die Grundlage für unser Zusammenleben.",
+    },
+    {
+      icon: "chat" as const,
+      title: "Kommunikation",
+      text: "Wir sprechen offen miteinander – mit den Kindern genauso wie im Austausch mit den Eltern.",
+    },
+  ],
   song: {
     titel: "Playing in the Sunshine",
     kuenstler: 'Keith Powell / "Roughhouse" und Eliane Hobbing',

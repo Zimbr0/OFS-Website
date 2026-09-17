@@ -1,24 +1,16 @@
 import { Button } from "@/components/Button";
 import { Badge } from "@/components/Badge";
-import { Tile } from "@/components/Tile";
+import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { Marquee } from "@/components/Marquee";
 import { Reveal } from "@/components/Reveal";
-import { StatBar } from "@/components/StatBar";
 import { SectionIntro } from "@/components/SectionIntro";
-import { FaqAccordion } from "@/components/FaqAccordion";
-import { iconMap, AccessibleIcon } from "@/components/icons";
-import {
-  betreuungCards,
-  betreuungStunden,
-  erfolge,
-  faqPreview,
-  hero,
-  partners,
-  schoolInfoStats,
-  schwerpunkte,
-} from "@/content/home";
+import { AccessibleIcon } from "@/components/icons";
+import { erfolge, factSections, hero, leitspruch, partners } from "@/content/home";
+import { termine } from "@/content/termine";
 
 export default function HomePage() {
+  const naechsteTermine = termine.slice(0, 2);
+
   return (
     <>
       {/* HERO */}
@@ -48,42 +40,27 @@ export default function HomePage() {
             <div className="card-body" style={{ gap: 18 }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <span className="h3" style={{ fontSize: 17 }}>
-                  Heute an der Schule
+                  Nächste Termine
                 </span>
-                <Badge live>LIVE</Badge>
+                <Badge>Termine</Badge>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                <div className="check-item">
-                  <span className="check-icon">
-                    <CheckIcon />
-                  </span>
-                  <span className="body-m">
-                    <strong style={{ color: "var(--c-ink)" }}>Klassenrat 3b</strong>
-                    <br />
-                    Thema: Frühlingsfensterbilder für den Flur
-                  </span>
-                </div>
-                <div className="check-item">
-                  <span className="check-icon">
-                    <CheckIcon />
-                  </span>
-                  <span className="body-m">
-                    <strong style={{ color: "var(--c-ink)" }}>Forschertag Klasse 2</strong>
-                    <br />
-                    Experimente zu den vier Elementen
-                  </span>
-                </div>
-                <div className="check-item">
-                  <span className="check-icon">
-                    <DotIcon />
-                  </span>
-                  <span className="body-m">
-                    <strong style={{ color: "var(--c-ink)" }}>OGS „Schülerbande“</strong>
-                    <br />
-                    Rhythmen &amp; Töne · 14:00–16:00
-                  </span>
-                </div>
+                {naechsteTermine.map((termin) => (
+                  <div className="check-item" key={termin.titel}>
+                    <span className="check-icon">
+                      <CalendarDotIcon />
+                    </span>
+                    <span className="body-m">
+                      <strong style={{ color: "var(--c-ink)" }}>{termin.titel}</strong>
+                      <br />
+                      {termin.datum}
+                    </span>
+                  </div>
+                ))}
               </div>
+              <Button href="/termine" size="sm">
+                Alle Termine ansehen
+              </Button>
             </div>
           </div>
 
@@ -108,11 +85,11 @@ export default function HomePage() {
                 width: 38,
                 height: 38,
                 borderRadius: 11,
-                background: "var(--c-mint)",
+                background: "var(--c-secondary-soft)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "var(--c-primary-deep)",
+                color: "var(--c-secondary)",
                 flexShrink: 0,
               }}
             >
@@ -128,119 +105,51 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* STAT BAND */}
-      <section style={{ background: "var(--c-mint)", padding: "44px 0" }}>
-        <div className="wrap grid grid-4" style={{ textAlign: "center" }}>
-          {schoolInfoStats.map((stat) => (
-            <div key={stat.label}>
-              <div className="h2" style={{ fontSize: 34, color: stat.accent ? "var(--c-primary-deep)" : undefined }}>
-                {stat.value}
-              </div>
-              <p className="body-m">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <div className="wrap">
+        <hr className="divider" />
+      </div>
 
-      {/* MARQUEE */}
-      <section style={{ padding: "36px 0", borderBottom: "1px solid var(--c-line)" }}>
-        <p className="body-m" style={{ textAlign: "center", marginBottom: 18 }}>
-          Getragen von starken Partnern aus Unna
-        </p>
-        <Marquee items={partners} />
-      </section>
+      {/* FACT SECTIONS */}
+      {factSections.map((section, index) => (
+        <section
+          key={section.number}
+          className={`wrap split section${index % 2 === 1 ? " split-reverse" : ""}`}
+        >
+          {index % 2 === 0 ? (
+            <>
+              <PlaceholderImage label={section.imageLabel} height={420} />
+              <FactSectionText section={section} />
+            </>
+          ) : (
+            <>
+              <FactSectionText section={section} />
+              <PlaceholderImage label={section.imageLabel} height={420} />
+            </>
+          )}
+        </section>
+      ))}
 
-      {/* DAWN / MOTTO SECTION */}
+      {/* DAWN / ZITAT */}
       <section className="section-dawn" style={{ padding: "96px 0" }}>
-        <div className="wrap split">
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            <span className="eyebrow" style={{ color: "var(--c-mint-light)" }}>
-              Unser Motto
-            </span>
-            <h2 className="h2" style={{ color: "#fff" }}>
-              Das ICH entwickeln,
-              <br />
-              das WIR stärken,
-              <br />
-              das MORGEN mitgestalten.
-            </h2>
-            <p className="body-l" style={{ maxWidth: 480 }}>
-              Von der Frühbetreuung um 7 Uhr bis zur OGS „Schülerbande“ um 16 Uhr – für jede Familie das
-              passende Modell.
-            </p>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 22,
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.16)",
-              borderRadius: "var(--radius-l)",
-              padding: 34,
-            }}
+        <div className="wrap" style={{ maxWidth: 760, textAlign: "center", margin: "0 auto" }}>
+          <span className="eyebrow" style={{ color: "rgba(255,255,255,0.85)", justifyContent: "center" }}>
+            {leitspruch.eyebrow}
+          </span>
+          <blockquote
+            className="quote-serif"
+            style={{ fontSize: "clamp(24px, 3.4vw, 34px)", color: "#fff", margin: "20px 0" }}
           >
-            {betreuungStunden.map((row, index) => (
-              <StatBar
-                key={row.label}
-                label={row.label}
-                value={row.value}
-                percent={row.percent}
-                delay={index * 0.12}
-                dark
-                fillColor={index === 2 ? "var(--c-mint-light)" : undefined}
-              />
-            ))}
-          </div>
+            &bdquo;{leitspruch.quote}&ldquo;
+          </blockquote>
+          <p className="body-m" style={{ color: "rgba(255,255,255,0.78)" }}>
+            {leitspruch.autor}
+          </p>
         </div>
       </section>
 
-      {/* SCHWERPUNKTE */}
-      <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 40 }}>
-        <SectionIntro eyebrow="Wir stellen unsere Arbeit vor" title="Pädagogische Schwerpunkte" />
-        <div className="grid grid-4">
-          {schwerpunkte.map((item, index) => {
-            const Icon = iconMap[item.icon];
-            return (
-              <Reveal key={item.title} delay={index * 0.08}>
-                <Tile icon={<Icon size={22} />} title={item.title}>
-                  {item.text}
-                </Tile>
-              </Reveal>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* BETREUUNG */}
-      <section className="wrap section" style={{ paddingTop: 0, display: "flex", flexDirection: "column", gap: 40 }}>
-        <SectionIntro eyebrow="Betreuung" title="Für jede Familie das passende Modell" />
-        <div className="grid grid-3">
-          {betreuungCards.map((card) => (
-            <div
-              className="card"
-              key={card.title}
-              style={
-                card.highlight
-                  ? { borderColor: "var(--c-primary)", boxShadow: "0 20px 45px -25px rgba(22,179,100,0.4)" }
-                  : undefined
-              }
-            >
-              <div className="card-body">
-                <Badge live={card.highlight} style={card.highlight ? { background: "var(--c-primary)", color: "#fff" } : undefined}>
-                  {card.badge}
-                </Badge>
-                <div className="h3">{card.title}</div>
-                <p className="body-m">{card.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ERFOLGE */}
-      <section className="wrap section" style={{ paddingTop: 0, display: "flex", flexDirection: "column", gap: 36 }}>
-        <SectionIntro eyebrow="Aus dem Schulleben" title="Erfolge & Highlights" />
+      {/* AKTUELLES */}
+      <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 36 }}>
+        <SectionIntro eyebrow="Aus dem Schulleben" title="Aktuelles" />
         <div className="split" style={{ gap: 20 }}>
           <div
             style={{
@@ -253,7 +162,7 @@ export default function HomePage() {
               color: "#fff",
             }}
           >
-            <Badge style={{ background: "rgba(255,255,255,0.12)", color: "var(--c-mint-light)" }}>
+            <Badge style={{ background: "rgba(255,255,255,0.12)", color: "#fff" }}>
               {erfolge.featured.badge}
             </Badge>
             <div className="quote-serif" style={{ fontSize: 24, color: "#fff" }}>
@@ -271,17 +180,11 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="wrap section" style={{ paddingTop: 0, display: "flex", flexDirection: "column", gap: 32 }}>
-        <SectionIntro eyebrow="FAQ" title="Eltern A–Z" />
-        <FaqAccordion items={faqPreview} openFirst />
-        <Button href="/eltern-a-z">Alle Fragen ansehen</Button>
+        <Button href="/aktuelles">Alle Beiträge ansehen</Button>
       </section>
 
       {/* FINAL CTA */}
-      <section className="wrap" style={{ paddingBottom: 96 }}>
+      <section className="wrap" style={{ paddingBottom: 72 }}>
         <div
           className="split"
           style={{
@@ -296,7 +199,7 @@ export default function HomePage() {
             <h2 className="h2" style={{ color: "#fff", fontSize: 36 }}>
               Lernt uns persönlich kennen.
             </h2>
-            <p className="body-l" style={{ maxWidth: 480 }}>
+            <p className="body-l" style={{ maxWidth: 480, color: "rgba(255,255,255,0.85)" }}>
               Beim nächsten Tag der offenen Tür oder jederzeit nach Absprache – wir freuen uns auf euch.
             </p>
             <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
@@ -325,19 +228,38 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* MARQUEE / SPONSOREN */}
+      <section style={{ padding: "36px 0 0" }}>
+        <p className="body-m" style={{ textAlign: "center", marginBottom: 18 }}>
+          Getragen von starken Partnern aus Unna
+        </p>
+        <Marquee items={partners} />
+      </section>
     </>
   );
 }
 
-function CheckIcon() {
+function FactSectionText({
+  section,
+}: {
+  section: { number: string; title: string; text: string; ctaLabel: string; ctaHref: string };
+}) {
   return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M5 13l4 4L19 7" />
-    </svg>
+    <Reveal>
+      <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+        <span className="section-num">{section.number}</span>
+        <h2 className="h2">{section.title}</h2>
+        <p className="body-l" style={{ maxWidth: 560 }}>
+          {section.text}
+        </p>
+        <Button href={section.ctaHref}>{section.ctaLabel}</Button>
+      </div>
+    </Reveal>
   );
 }
 
-function DotIcon() {
+function CalendarDotIcon() {
   return (
     <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
       <circle cx="12" cy="12" r="8" />

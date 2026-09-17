@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Badge } from "@/components/Badge";
 import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { SectionIntro } from "@/components/SectionIntro";
+import { Tile } from "@/components/Tile";
+import { iconMap } from "@/components/icons";
 import { schoolInfo } from "@/content/schoolInfo";
 import { anmeldungHinweis, betreuungsmodelle, ogs } from "@/content/betreuung";
 
@@ -43,17 +45,30 @@ export default function BetreuungPage() {
           <span className="eyebrow">Unsere OGS</span>
           <h2 className="h2">„{ogs.name}“</h2>
           <p className="body-l" style={{ maxWidth: 520 }}>
-            {ogs.herkunft} Getragen wird unsere OGS von vier Werten:
+            {ogs.herkunft}
           </p>
-          <div className="stat-row">
-            {ogs.werte.map((wert) => (
-              <Badge key={wert}>{wert}</Badge>
-            ))}
-          </div>
           <p className="body-m" style={{ maxWidth: 520 }}>
             Unser eigener OGS-Song „{ogs.song.titel}“ (von {ogs.song.kuenstler}) begleitet uns durch
             den Alltag – inklusive eigenem Musikvideo.
           </p>
+        </div>
+      </section>
+
+      <div className="wrap">
+        <hr className="divider" />
+      </div>
+
+      <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+        <SectionIntro eyebrow="Unsere Haltung" title="Getragen von vier Werten" />
+        <div className="grid grid-4">
+          {ogs.werte.map((wert) => {
+            const Icon = iconMap[wert.icon];
+            return (
+              <Tile key={wert.title} icon={<Icon />} title={wert.title}>
+                {wert.text}
+              </Tile>
+            );
+          })}
         </div>
       </section>
 
