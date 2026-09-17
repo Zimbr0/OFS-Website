@@ -11,9 +11,6 @@
   --c-primary: #5d7315;
   --c-primary-deep: #3f4e0e;
   --c-primary-soft: #f1f6e2;
-  /* Das echte, helle Logo-Grün – nur für die Pflanzen-Illustration selbst,
-     nicht für Text (zu wenig Kontrast auf Weiß). */
-  --c-logo-green: #96ba22;
 
   --radius-l: 24px;
   --radius-m: 16px;
@@ -748,61 +745,6 @@ h3 {
   }
 }
 
-.hero-plant {
-  display: inline-block;
-  width: 20px;
-  height: 28px;
-  margin-left: 3px;
-  vertical-align: bottom;
-  overflow: visible;
-}
-
-.hero-plant .plant-stem {
-  stroke-dasharray: 30;
-  stroke-dashoffset: 30;
-  animation: os-plant-stem 0.5s ease-out forwards;
-}
-
-.hero-plant .plant-ground {
-  opacity: 0;
-  animation: os-plant-fade 0.3s ease-out forwards;
-}
-
-.hero-plant .plant-leaf {
-  opacity: 0;
-  transform: scale(0.25);
-  animation: os-plant-leaf 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.hero-plant .plant-leaf-small {
-  transform-origin: 16px 27px;
-  animation-delay: 0.28s;
-}
-
-.hero-plant .plant-leaf-big {
-  transform-origin: 16px 20px;
-  animation-delay: 0.42s;
-}
-
-@keyframes os-plant-stem {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes os-plant-fade {
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes os-plant-leaf {
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;
@@ -822,14 +764,6 @@ h3 {
   .typing-cursor {
     animation: none !important;
     opacity: 1;
-  }
-  .hero-plant .plant-stem,
-  .hero-plant .plant-ground,
-  .hero-plant .plant-leaf {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    stroke-dashoffset: 0 !important;
   }
 }
 
