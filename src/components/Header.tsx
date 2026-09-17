@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { mainNav } from "@/content/nav";
 import { basePath } from "@/lib/basePath";
@@ -10,16 +10,35 @@ import { CloseIcon, MenuIcon } from "./icons";
 export function Header() {
   const [open, setOpen] = useState(false);
 
+  // Escape schließt die Schublade, und solange sie offen ist, blockieren wir
+  // das Scrollen der Seite dahinter (wie bei üblichen Slide-in-Menüs).
+  useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
   return (
+    <>
     <header className="site-header">
       <div className="wrap site-header-inner">
-        <Link href="/" className="logo" onClick={() => setOpen(false)}>
+        <Link href="/" className="logo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`${basePath}/logo.png`}
             alt="Logo der Osterfeldschule Unna"
-            width={80}
-            height={42}
+            width={116}
+            height={120}
             className="logo-mark"
           />
           <span className="logo-text">
@@ -45,37 +64,66 @@ export function Header() {
           <button
             type="button"
             className="menu-toggle"
-            aria-label={open ? "Menü schließen" : "Menü öffnen"}
+            aria-label="Menü öffnen"
             aria-expanded={open}
-            onClick={() => setOpen((value) => !value)}
+            onClick={() => setOpen(true)}
           >
-            {open ? <CloseIcon /> : <MenuIcon />}
+            <MenuIcon />
           </button>
         </div>
       </div>
+    </header>
 
-      {open ? (
-        <nav className="mobile-nav" aria-label="Mobile Navigation">
-          {mainNav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="mobile-nav-link"
+    {open ? (
+      <>
+        <button
+          type="button"
+          className="nav-drawer-backdrop"
+          aria-label="Menü schließen"
+          onClick={() => setOpen(false)}
+        />
+        <div className="nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+          <div className="nav-drawer-header">
+            <Link href="/" className="logo" onClick={() => setOpen(false)}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${basePath}/logo.png`}
+                alt="Logo der Osterfeldschule Unna"
+                width={116}
+                height={120}
+                className="logo-mark"
+                style={{ height: 34 }}
+              />
+              <span className="logo-text">
+                <strong>Osterfeldschule</strong>
+              </span>
+            </Link>
+            <button
+              type="button"
+              className="nav-drawer-close"
+              aria-label="Menü schließen"
               onClick={() => setOpen(false)}
             >
-              {item.label}
-            </Link>
-          ))}
-          <Link
-            href="/kontakt"
-            className="mobile-nav-link"
-            style={{ color: "var(--c-secondary)" }}
-            onClick={() => setOpen(false)}
-          >
-            Kontakt aufnehmen
-          </Link>
-        </nav>
-      ) : null}
-    </header>
+              <CloseIcon />
+            </button>
+          </div>
+
+          <nav className="nav-drawer-links" aria-label="Hauptnavigation (mobil)">
+            {mainNav.map((item) => (
+              <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="nav-drawer-footer">
+            <Button href="/kontakt" variant="primary" style={{ width: "100%", justifyContent: "center" }}>
+              Kontakt aufnehmen
+            </Button>
+          </div>
+        </div>
+      </>
+    ) : null}
+    </>
   );
 }

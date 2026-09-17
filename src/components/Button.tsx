@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { ArrowRightIcon } from "./icons";
 
 type ButtonProps = {
@@ -8,6 +8,7 @@ type ButtonProps = {
   variant?: "primary" | "secondary";
   size?: "default" | "sm";
   external?: boolean;
+  style?: CSSProperties;
 };
 
 export function Button({
@@ -16,6 +17,7 @@ export function Button({
   variant = "secondary",
   size = "default",
   external = false,
+  style,
 }: ButtonProps) {
   const className = [
     "btn",
@@ -34,14 +36,14 @@ export function Button({
 
   if (external) {
     return (
-      <a href={href} className={className} target="_blank" rel="noreferrer">
+      <a href={href} className={className} style={style} target="_blank" rel="noreferrer">
         {content}
       </a>
     );
   }
 
   return (
-    <Link href={href} className={className}>
+    <Link href={href} className={className} style={style}>
       {content}
     </Link>
   );

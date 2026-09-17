@@ -14,9 +14,9 @@ export function Footer() {
               <img
                 src={`${basePath}/logo.png`}
                 alt="Logo der Osterfeldschule Unna"
-                width={80}
-                height={42}
-                style={{ height: 38, width: "auto", flexShrink: 0 }}
+                width={116}
+                height={120}
+                style={{ height: 40, width: "auto", flexShrink: 0 }}
               />
               <span style={{ fontWeight: 800, fontSize: 16 }}>{schoolInfo.name}</span>
             </div>
