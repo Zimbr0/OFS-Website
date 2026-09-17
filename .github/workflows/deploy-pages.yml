@@ -1,16 +1,18 @@
 name: Deploy to GitHub Pages
 
-# Baut zwei Branches (zwei Designs) und veröffentlicht beide gemeinsam auf
-# derselben GitHub-Pages-Seite unter zwei Pfaden:
-#   - claude/school-project-design-aotieh  -> /OFS-Website/
-#   - claude/school-project-design-v2      -> /OFS-Website/v2/
-# Ein Push auf einen der beiden Branches baut beide neu, damit die Seite nie
-# nur zur Hälfte aktuell ist.
+# Dieser Branch (aotieh) wird nicht mehr veröffentlicht. Das aktuelle Design
+# lebt auf claude/school-project-design-v2 und baut/deployt sich von dort
+# direkt nach /OFS-Website/. Diese Datei hier bleibt bewusst inaktiv (keine
+# aotieh-Trigger, kein Build-Job mehr), damit ein Push auf aotieh nie wieder
+# versehentlich den v2-Stand auf GitHub Pages überschreibt.
+#
+# Maßgeblich ist ausschließlich die Workflow-Datei auf dem Branch, der den
+# Push auslöst - ein alter, hier weiter vorhandener aotieh-Trigger würde also
+# trotzdem wieder feuern, wäre er nicht entfernt worden.
 
 on:
   push:
     branches:
-      - claude/school-project-design-aotieh
       - claude/school-project-design-v2
       - main
   workflow_dispatch:
@@ -28,52 +30,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Design 1 (aotieh)
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: claude/school-project-design-aotieh
-          path: site-v1
-
-      - name: Checkout Design 2 (v2)
-        uses: actions/checkout@v4
-        with:
-          ref: claude/school-project-design-v2
-          path: site-v2
 
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: |
-            site-v1/package-lock.json
-            site-v2/package-lock.json
 
-      - name: Build Design 1
-        working-directory: site-v1
+      - name: Build
         run: |
           npm ci
           npm run build
         env:
           GITHUB_PAGES: "true"
-
-      - name: Build Design 2
-        working-directory: site-v2
-        run: |
-          npm ci
-          npm run build
-        env:
-          GITHUB_PAGES: "true"
-
-      - name: Combine outputs
-        run: |
-          mkdir -p combined
-          cp -r site-v1/out/. combined/
-          mkdir -p combined/v2
-          cp -r site-v2/out/. combined/v2/
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./combined
+          path: ./out
 
   deploy:
     needs: build
