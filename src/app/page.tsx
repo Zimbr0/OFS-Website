@@ -29,15 +29,26 @@ export default function HomePage() {
         <PlaceholderImage label="Platzhalterfoto – echtes Foto folgt" height={460} src="hero-schulhof.jpg" />
       </section>
 
+      <div className="wrap">
+        <hr className="divider" />
+      </div>
+
       {/* ZITAT */}
       <section className="quote-field">
         <div className="wrap" style={{ maxWidth: 780, margin: "0 auto", textAlign: "center" }}>
-          <p className="quote-text">&bdquo;{leitspruch.quote}&ldquo;</p>
+          <span className="quote-mark" aria-hidden="true">
+            &rdquo;
+          </span>
+          <p className="quote-text">{leitspruch.quote}</p>
           <p className="body-m" style={{ marginTop: 18 }}>
             {leitspruch.autor}
           </p>
         </div>
       </section>
+
+      <div className="wrap">
+        <hr className="divider" />
+      </div>
 
       {/* FACT SECTIONS */}
       {factSections.map((section, index) => (

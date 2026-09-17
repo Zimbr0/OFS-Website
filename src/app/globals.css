@@ -330,8 +330,17 @@ h3 {
 }
 
 .quote-field {
-  background: var(--c-mint);
-  padding: 56px 0;
+  padding: 48px 0 56px;
+}
+
+.quote-mark {
+  display: block;
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--c-primary);
+  opacity: 0.22;
+  margin-bottom: 4px;
 }
 
 .quote-text {
