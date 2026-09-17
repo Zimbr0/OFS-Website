@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Newsreader, Plus_Jakarta_Sans } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { schoolInfo } from "@/content/schoolInfo";
@@ -9,6 +9,13 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
   subsets: ["latin"],
   weight: ["500", "600", "700", "800"],
+});
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  style: ["italic"],
+  weight: ["500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -21,8 +28,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="de" className={jakarta.variable}>
+    <html lang="de" className={`${jakarta.variable} ${newsreader.variable}`}>
       <body>
+        {/* Ohne JavaScript kann der Scroll-Reveal (Reveal-Komponente) nie
+            auf "sichtbar" umschalten – ohne dieses Fallback bliebe der
+            Inhalt dauerhaft unsichtbar. */}
+        <noscript>
+          <style>{".reveal { opacity: 1 !important; transform: none !important; }"}</style>
+        </noscript>
         <Header />
         <main>{children}</main>
         <Footer />

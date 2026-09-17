@@ -28,9 +28,7 @@ export function Button({
   const content = (
     <>
       <span>{children}</span>
-      <span className="btn-icon">
-        <ArrowRightIcon size={size === "sm" ? 14 : 16} />
-      </span>
+      <ArrowRightIcon size={size === "sm" ? 15 : 17} />
     </>
   );
 

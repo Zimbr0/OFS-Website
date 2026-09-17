@@ -11,6 +11,14 @@ export const hero = {
   stats: ["146 Schüler:innen", "7 Klassen", "MINT-Schwerpunkt", "barrierefrei"],
 };
 
+// Für das Statistik-Band direkt unter dem Hero.
+export const schoolInfoStats: { label: string; value: string; accent?: boolean }[] = [
+  { label: "Schüler:innen", value: "146", accent: true },
+  { label: "Klassen", value: "7" },
+  { label: "Schwerpunkt", value: "MINT", accent: true },
+  { label: "barrierefrei", value: "100%" },
+];
+
 export const leitsaetze: { icon: IconKey; title: string; text: string }[] = [
   {
     icon: "star",
@@ -140,6 +148,38 @@ export const missionQuote = {
   ctaLabel: "Förderverein unterstützen",
   ctaHref: "/foerderverein",
   imageLabel: "Foto: Schulleben / Sommerfest",
+};
+
+// Partner & Unterstützer fürs Laufband (Marquee) auf der Startseite.
+export const partners = [
+  "Förderverein Osterfeldschule",
+  "Stadt Unna",
+  "SPI Unna",
+  "Sparkasse Unna",
+  "Karl-Kolle-Stiftung",
+  "Stadtwerke Unna",
+  "Bäckerei Höltermann",
+];
+
+// Betreuungszeiten als Balken (Prozent relativ zur OGS mit 8 Std. = 100 %).
+export const betreuungStunden = [
+  { label: "OGS „Schülerbande“", value: "8 Std.", percent: 100 },
+  { label: "Kurzbetreuung", value: "5,25 Std.", percent: 66 },
+  { label: "Frühbetreuung", value: "0,75 Std.", percent: 9 },
+];
+
+// Echte Erfolge aus dem Schulleben statt erfundener Testimonials.
+export const erfolge = {
+  featured: {
+    badge: "Stadtmeisterschaften",
+    quote: "Stadtmeister im Handball – und in einer weiteren Saison Vizestadtmeister.",
+    text: "Dazu starke Platzierungen bei den Stadtmeisterschaften Schwimmen und Leichtathletik.",
+  },
+  card: {
+    badge: "Leseförderung",
+    title: "Vorlesewettbewerb",
+    text: "Jedes Jahr messen sich die besten Vorleser:innen jeder Klasse – in Kooperation mit der Buchhandlung Hornung.",
+  },
 };
 
 export const faqPreview = [
