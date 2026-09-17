@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
 // Für GitHub Pages wird die Seite als reine HTML/CSS/JS-Dateien exportiert
-// (kein Server nötig) und liegt dort unter /OFS-Website/ statt an der
-// Domain-Wurzel. Lokal (npm run dev) bleibt alles wie gewohnt unter /.
+// (kein Server nötig). Dieser Branch (alternatives Design) wird als
+// Unterpfad neben dem Hauptdesign veröffentlicht: /OFS-Website/v2/ statt
+// /OFS-Website/. Lokal (npm run dev) bleibt alles wie gewohnt unter /.
 const isGithubPages = process.env.GITHUB_PAGES === "true";
-const repoName = "OFS-Website";
+const repoName = "OFS-Website/v2";
 
 const basePath = isGithubPages ? `/${repoName}` : "";
 
