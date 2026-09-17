@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { mainNav } from "@/content/nav";
+import { basePath } from "@/lib/basePath";
 import { Button } from "./Button";
 import { CloseIcon, MenuIcon } from "./icons";
 
@@ -14,13 +14,13 @@ export function Header() {
     <header className="site-header">
       <div className="wrap site-header-inner">
         <Link href="/" className="logo" onClick={() => setOpen(false)}>
-          <Image
-            src="/logo.png"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`${basePath}/logo.png`}
             alt="Logo der Osterfeldschule Unna"
             width={80}
             height={42}
             className="logo-mark"
-            priority
           />
           <span className="logo-text">
             <strong>Osterfeldschule</strong>

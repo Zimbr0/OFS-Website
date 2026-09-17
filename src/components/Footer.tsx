@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { mainNav } from "@/content/nav";
+import { basePath } from "@/lib/basePath";
 import { schoolInfo } from "@/content/schoolInfo";
 
 export function Footer() {
@@ -10,8 +10,9 @@ export function Footer() {
         <div className="footer-grid">
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <Image
-                src="/logo.png"
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${basePath}/logo.png`}
                 alt="Logo der Osterfeldschule Unna"
                 width={80}
                 height={42}
