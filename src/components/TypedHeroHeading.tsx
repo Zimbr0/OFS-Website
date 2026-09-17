@@ -15,12 +15,15 @@ type Pos = [number, number];
 const DONE: Pos = [lines.length, 0];
 
 // "ICH", "WIR" und "MORGEN" stehen sofort da; der Rest jeder Zeile wird wie
-// mit einer Schreibmaschine samt blinkendem "_"-Cursor dahinter getippt.
-// Start-Zustand ist bewusst "fertig" (voller Text), damit ohne JavaScript
-// (SSR, Suchmaschinen) sofort der komplette Satz lesbar ist – erst nach dem
-// Mount wird auf Anfang zurückgesetzt und die Animation gestartet.
+// mit einer Schreibmaschine samt blinkendem "_"-Cursor dahinter getippt. Ist
+// die Animation fertig, verschwindet der Cursor und ein kleiner grüner Haken
+// blinkt kurz auf ("erledigt") und blendet wieder aus. Start-Zustand ist
+// bewusst "fertig" (voller Text, kein Haken), damit ohne JavaScript (SSR,
+// Suchmaschinen) sofort der komplette Satz lesbar ist – erst nach dem Mount
+// wird auf Anfang zurückgesetzt und die Animation gestartet.
 export function TypedHeroHeading() {
   const [pos, setPos] = useState<Pos>(DONE);
+  const [justFinished, setJustFinished] = useState(false);
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -33,6 +36,7 @@ export function TypedHeroHeading() {
     const tick = () => {
       if (lineIndex >= lines.length) {
         setPos(DONE);
+        setJustFinished(true);
         return;
       }
       setPos([lineIndex, charIndex]);
@@ -57,7 +61,9 @@ export function TypedHeroHeading() {
     <h1 className="h1">
       {lines.map((line, index) => {
         const shown = isDone || index < pos[0] ? line.rest : index === pos[0] ? line.rest.slice(0, pos[1]) : "";
-        const showCursor = isDone ? index === lines.length - 1 : index === pos[0];
+        const isLastLine = index === lines.length - 1;
+        const showCursor = !isDone && index === pos[0];
+        const showCheck = isDone && isLastLine && justFinished;
         return (
           <span
             key={line.keyword}
@@ -68,6 +74,13 @@ export function TypedHeroHeading() {
             {showCursor ? (
               <span className="typing-cursor" aria-hidden="true">
                 _
+              </span>
+            ) : null}
+            {showCheck ? (
+              <span className="typing-check" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 13l4 4L19 7" />
+                </svg>
               </span>
             ) : null}
           </span>
