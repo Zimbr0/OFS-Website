@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Badge } from "@/components/Badge";
 import { termine, termineHinweis } from "@/content/termine";
 
 export const metadata: Metadata = { title: "Termine" };
@@ -26,7 +25,11 @@ export default function TerminePage() {
             key={termin.titel}
             style={{ flexDirection: "row", alignItems: "flex-start", gap: 22, flexWrap: "wrap" }}
           >
-            <Badge style={{ flexShrink: 0, marginTop: 2 }}>{termin.datum}</Badge>
+            <span
+              style={{ flexShrink: 0, marginTop: 2, color: "var(--c-primary)", fontWeight: 700, fontSize: 14, minWidth: 130 }}
+            >
+              {termin.datum}
+            </span>
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
               <span className="footer-col-title" style={{ margin: 0 }}>
                 {termin.kategorie}

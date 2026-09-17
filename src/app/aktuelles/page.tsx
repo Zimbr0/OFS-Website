@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Badge } from "@/components/Badge";
+import { AltSection } from "@/components/AltSection";
 import { aktuellesEintraege } from "@/content/aktuelles";
 
 export const metadata: Metadata = { title: "Aktuelles" };
@@ -17,17 +17,17 @@ export default function AktuellesPage() {
         </p>
       </div>
 
-      <section className="wrap section grid grid-3">
-        {aktuellesEintraege.map((eintrag) => (
-          <div className="tile" key={eintrag.titel}>
-            <Badge>{eintrag.kategorie}</Badge>
-            <div className="h3" style={{ fontSize: 18 }}>
-              {eintrag.titel}
-            </div>
-            <p className="body-m">{eintrag.text}</p>
-          </div>
-        ))}
-      </section>
+      {aktuellesEintraege.map((eintrag, index) => (
+        <AltSection
+          key={eintrag.titel}
+          index={index}
+          title={eintrag.titel}
+          text={eintrag.text}
+          kategorie={eintrag.kategorie}
+          datum={eintrag.datum}
+          imageLabel={eintrag.imageLabel}
+        />
+      ))}
 
       <div className="wrap" style={{ paddingBottom: 72 }}>
         <p className="body-m" style={{ maxWidth: 680 }}>

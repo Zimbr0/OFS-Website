@@ -50,23 +50,16 @@ export const leitspruch = {
   autor: "Astrid Lindgren",
 };
 
-// Aktuelles auf der Startseite – im gleichen Aufbau wie die Fact-Sections
-// (Bild + Text + Datum), echte Ereignisse statt erfundener Testimonials.
-export const aktuellesHighlights = [
-  {
-    title: "Stadtmeister im Handball",
-    datum: "[Datum ergänzen]",
-    text: "Unsere Mannschaft wurde Stadtmeister im Handball – und in einer weiteren Saison Vizestadtmeister. Dazu starke Platzierungen bei den Stadtmeisterschaften Schwimmen und Leichtathletik.",
-    ctaLabel: "Mehr aus dem Schulleben",
-    ctaHref: "/aktuelles",
-    imageLabel: "Foto: Stadtmeisterschaften Handball",
+// Echte Erfolge aus dem Schulleben statt erfundener Testimonials.
+export const erfolge = {
+  featured: {
+    badge: "Stadtmeisterschaften",
+    quote: "Stadtmeister im Handball – und in einer weiteren Saison Vizestadtmeister.",
+    text: "Dazu starke Platzierungen bei den Stadtmeisterschaften Schwimmen und Leichtathletik.",
   },
-  {
+  card: {
+    badge: "Leseförderung",
     title: "Vorlesewettbewerb",
-    datum: "[Datum ergänzen]",
     text: "Jedes Jahr messen sich die besten Vorleser:innen jeder Klasse – in Kooperation mit der Buchhandlung Hornung.",
-    ctaLabel: "Mehr aus dem Schulleben",
-    ctaHref: "/aktuelles",
-    imageLabel: "Foto: Vorlesewettbewerb",
   },
-];
+};

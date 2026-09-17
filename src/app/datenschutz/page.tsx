@@ -9,7 +9,7 @@ export default function DatenschutzPage() {
         Datenschutz
       </h1>
 
-      <div className="tile" style={{ background: "var(--c-secondary-soft)" }}>
+      <div className="tile" style={{ background: "var(--c-primary-soft)" }}>
         <p className="body-m" style={{ margin: 0 }}>
           Diese Datenschutzerklärung ist noch nicht vollständig. Sie muss vor der
           Veröffentlichung der Seite mit dem Schulträger bzw. dem behördlichen

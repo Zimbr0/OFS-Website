@@ -6,14 +6,10 @@
   --c-ink-soft: #4b5b52;
   --c-line: #e3ece6;
 
-  /* Primärfarbe: Grün – für Buttons, Links, Live-Indikatoren. */
+  /* Einzige Akzentfarbe: Grün – für Buttons, Links, Eyebrows, Icon-Flächen. */
   --c-primary: #2e7d63;
   --c-primary-deep: #1f5c47;
   --c-primary-soft: #e3efe8;
-
-  /* Zweitfarbe: Orange – für Eyebrows, Icon-Flächen, informative Akzente. */
-  --c-secondary: #ff7a1a;
-  --c-secondary-soft: #fdeedd;
 
   --radius-l: 24px;
   --radius-m: 16px;
@@ -65,14 +61,14 @@ img {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--c-secondary);
+  color: var(--c-primary);
 }
 
 .eyebrow::before {
   content: "";
   width: 18px;
   height: 1.5px;
-  background: var(--c-secondary);
+  background: var(--c-primary);
   display: inline-block;
   flex-shrink: 0;
 }
@@ -170,11 +166,11 @@ h3 {
   gap: 7px;
   padding: 6px 13px;
   border-radius: var(--radius-pill);
-  background: var(--c-secondary-soft);
+  background: var(--c-primary-soft);
   border: none;
   font-size: 13px;
   font-weight: 700;
-  color: var(--c-secondary);
+  color: var(--c-primary);
   width: fit-content;
 }
 
@@ -220,8 +216,8 @@ h3 {
   width: 46px;
   height: 46px;
   border-radius: 13px;
-  background: var(--c-secondary-soft);
-  color: var(--c-secondary);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -238,8 +234,8 @@ h3 {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: var(--c-secondary-soft);
-  color: var(--c-secondary);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -327,18 +323,12 @@ h3 {
   padding-bottom: 48px;
 }
 
-.quote-panel {
-  background: rgba(46, 125, 99, 0.07);
-  border: 1px solid rgba(46, 125, 99, 0.18);
-  border-radius: var(--radius-l);
-  padding: 48px 40px;
-  text-align: center;
-  max-width: 780px;
-  margin: 0 auto;
+.quote-field {
+  background: var(--c-mint);
+  padding: 56px 0;
 }
 
-.quote-panel-text {
-  font-family: var(--font-sans);
+.quote-text {
   font-weight: 600;
   font-style: normal;
   font-size: clamp(21px, 2.6vw, 28px);
@@ -615,8 +605,8 @@ h3 {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: var(--c-secondary-soft);
-  color: var(--c-secondary);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -635,13 +625,6 @@ h3 {
 
 /* ---------- marquee ---------- */
 
-.marquee-band {
-  padding: 48px 0;
-  background: var(--c-mint);
-  border-top: 1px solid var(--c-line);
-  border-bottom: 1px solid var(--c-line);
-}
-
 .marquee {
   overflow: hidden;
   position: relative;
@@ -659,15 +642,11 @@ h3 {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 22px;
-  margin: 0 10px;
+  padding: 0 36px;
   font-weight: 700;
-  font-size: 15px;
-  color: var(--c-ink);
+  font-size: 16px;
+  color: var(--c-ink-soft);
   white-space: nowrap;
-  background: #fff;
-  border: 1.5px solid var(--c-line);
-  border-radius: var(--radius-pill);
 }
 
 /* ---------- reveal on scroll ---------- */

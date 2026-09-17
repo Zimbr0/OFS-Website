@@ -10,7 +10,7 @@ export default function ImpressumPage() {
         Impressum
       </h1>
 
-      <div className="tile" style={{ background: "var(--c-secondary-soft)" }}>
+      <div className="tile" style={{ background: "var(--c-primary-soft)" }}>
         <p className="body-m" style={{ margin: 0 }}>
           Dieses Impressum ist noch unvollständig. Nach § 5 TMG sind unter anderem der
           verantwortliche Schulträger, eine vertretungsberechtigte Person sowie eine
