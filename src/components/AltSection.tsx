@@ -7,6 +7,7 @@ type AltSectionProps = {
   title: string;
   text: string;
   imageLabel: string;
+  imageSrc?: string;
   kategorie?: string;
   datum?: string;
   ctaLabel?: string;
@@ -17,7 +18,7 @@ type AltSectionProps = {
 // Unser Kollegium / Unsere Betreuung" auf der Startseite und die
 // Aktuelles-Übersicht. Datum/Kategorie werden bewusst als normaler Text statt
 // als runde Badges dargestellt.
-export function AltSection({ index, title, text, imageLabel, kategorie, datum, ctaLabel, ctaHref }: AltSectionProps) {
+export function AltSection({ index, title, text, imageLabel, imageSrc, kategorie, datum, ctaLabel, ctaHref }: AltSectionProps) {
   const reverse = index % 2 === 1;
 
   const textBlock = (
@@ -44,7 +45,7 @@ export function AltSection({ index, title, text, imageLabel, kategorie, datum, c
     </Reveal>
   );
 
-  const imageBlock = <PlaceholderImage label={imageLabel} height={420} />;
+  const imageBlock = <PlaceholderImage label={imageLabel} height={420} src={imageSrc} />;
 
   return (
     <section className={`wrap split section${reverse ? " split-reverse" : ""}`}>

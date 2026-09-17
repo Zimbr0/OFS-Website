@@ -304,6 +304,15 @@ h3 {
   pointer-events: none;
 }
 
+.placeholder-img.has-photo {
+  background-size: cover;
+  background-position: center;
+}
+
+.placeholder-img.has-photo::after {
+  background: linear-gradient(180deg, transparent 55%, rgba(16, 36, 26, 0.35) 100%);
+}
+
 .placeholder-tag {
   position: relative;
   background: rgba(255, 255, 255, 0.9);

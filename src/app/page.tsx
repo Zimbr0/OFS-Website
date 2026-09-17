@@ -26,7 +26,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <PlaceholderImage label="Foto: Schulgebäude / Schulhof einfügen" height={460} />
+        <PlaceholderImage label="Platzhalterfoto – echtes Foto folgt" height={460} src="hero-schulhof.jpg" />
       </section>
 
       {/* ZITAT */}
