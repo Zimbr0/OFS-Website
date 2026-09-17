@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { mainNav } from "@/content/nav";
 import { basePath } from "@/lib/basePath";
+import { withAssetVersion } from "@/lib/assets";
 import { schoolInfo } from "@/content/schoolInfo";
 
 export function Footer() {
@@ -12,7 +13,7 @@ export function Footer() {
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`${basePath}/logo.png`}
+                src={withAssetVersion(`${basePath}/logo.png`)}
                 alt="Logo der Osterfeldschule Unna"
                 width={116}
                 height={120}

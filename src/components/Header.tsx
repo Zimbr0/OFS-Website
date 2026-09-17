@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { mainNav } from "@/content/nav";
 import { basePath } from "@/lib/basePath";
+import { withAssetVersion } from "@/lib/assets";
 import { Button } from "./Button";
 import { CloseIcon, MenuIcon } from "./icons";
 
@@ -35,7 +36,7 @@ export function Header() {
         <Link href="/" className="logo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={`${basePath}/logo.png`}
+            src={withAssetVersion(`${basePath}/logo.png`)}
             alt="Logo der Osterfeldschule Unna"
             width={116}
             height={120}
@@ -87,7 +88,7 @@ export function Header() {
             <Link href="/" className="logo" onClick={() => setOpen(false)}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`${basePath}/logo.png`}
+                src={withAssetVersion(`${basePath}/logo.png`)}
                 alt="Logo der Osterfeldschule Unna"
                 width={116}
                 height={120}
