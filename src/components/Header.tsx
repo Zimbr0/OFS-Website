@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { mainNav } from "@/content/nav";
 import { Button } from "./Button";
@@ -13,7 +14,14 @@ export function Header() {
     <header className="site-header">
       <div className="wrap site-header-inner">
         <Link href="/" className="logo" onClick={() => setOpen(false)}>
-          <span className="logo-mark">OS</span>
+          <Image
+            src="/logo.png"
+            alt="Logo der Osterfeldschule Unna"
+            width={80}
+            height={42}
+            className="logo-mark"
+            priority
+          />
           <span className="logo-text">
             <strong>Osterfeldschule</strong>
             <span>Unna</span>

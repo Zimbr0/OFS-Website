@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { mainNav } from "@/content/nav";
 import { schoolInfo } from "@/content/schoolInfo";
@@ -9,23 +10,13 @@ export function Footer() {
         <div className="footer-grid">
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <div
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: "50%",
-                  background: "var(--c-ink)",
-                  color: "var(--c-bg)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontWeight: 800,
-                  fontSize: 14,
-                  flexShrink: 0,
-                }}
-              >
-                OS
-              </div>
+              <Image
+                src="/logo.png"
+                alt="Logo der Osterfeldschule Unna"
+                width={80}
+                height={42}
+                style={{ height: 38, width: "auto", flexShrink: 0 }}
+              />
               <span style={{ fontWeight: 800, fontSize: 16 }}>{schoolInfo.name}</span>
             </div>
             <p className="body-m" style={{ maxWidth: 260 }}>

@@ -358,15 +358,8 @@ h3 {
 }
 
 .logo-mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--c-accent-a), var(--c-accent-b));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 15px;
+  width: auto;
+  height: 40px;
   flex-shrink: 0;
 }
 
