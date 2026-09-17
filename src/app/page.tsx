@@ -4,7 +4,7 @@ import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { Marquee } from "@/components/Marquee";
 import { SectionIntro } from "@/components/SectionIntro";
 import { AltSection } from "@/components/AltSection";
-import { AccessibleIcon } from "@/components/icons";
+import { TypedHeroHeading } from "@/components/TypedHeroHeading";
 import { erfolge, factSections, hero, leitspruch, partners } from "@/content/home";
 
 export default function HomePage() {
@@ -14,13 +14,7 @@ export default function HomePage() {
       <section className="wrap split section" style={{ paddingTop: 56 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <span className="eyebrow">{hero.eyebrow}</span>
-          <h1 className="h1">
-            ICH entwickeln,
-            <br />
-            WIR stärken,
-            <br />
-            <span style={{ color: "var(--c-primary)" }}>MORGEN mitgestalten.</span>
-          </h1>
+          <TypedHeroHeading />
           <p className="body-l" style={{ maxWidth: 520 }}>
             {hero.intro}
           </p>
@@ -32,48 +26,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div style={{ position: "relative" }}>
-          <PlaceholderImage label="Foto: Schulgebäude / Schulhof einfügen" height={460} />
-
-          <div
-            className="floaty"
-            style={{
-              position: "absolute",
-              right: -28,
-              bottom: -30,
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              background: "#fff",
-              border: "1.5px solid var(--c-line)",
-              borderRadius: 16,
-              padding: "14px 18px",
-              boxShadow: "0 20px 40px -20px rgba(16,36,26,0.3)",
-            }}
-          >
-            <span
-              style={{
-                width: 38,
-                height: 38,
-                borderRadius: 11,
-                background: "var(--c-primary-soft)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "var(--c-primary)",
-                flexShrink: 0,
-              }}
-            >
-              <AccessibleIcon size={18} />
-            </span>
-            <span style={{ display: "flex", flexDirection: "column" }}>
-              <span style={{ fontWeight: 800, fontSize: 14 }}>Barrierefrei</span>
-              <span className="body-m" style={{ fontSize: 12 }}>
-                Einzige ebenerdige Schule Unnas
-              </span>
-            </span>
-          </div>
-        </div>
+        <PlaceholderImage label="Foto: Schulgebäude / Schulhof einfügen" height={460} />
       </section>
 
       {/* ZITAT */}

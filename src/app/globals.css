@@ -714,6 +714,23 @@ h3 {
   }
 }
 
+.typing-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: os-cursor-blink 1s steps(1) infinite;
+}
+
+@keyframes os-cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;
@@ -729,6 +746,10 @@ h3 {
   .nav-drawer-backdrop,
   .nav-drawer {
     animation: none !important;
+  }
+  .typing-cursor {
+    animation: none !important;
+    opacity: 1;
   }
 }
 
