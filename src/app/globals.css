@@ -12,6 +12,10 @@
   --c-primary-deep: #3f4e0e;
   --c-primary-soft: #f1f6e2;
 
+  /* Geometrische Deko-Formen hinter Fotos. */
+  --c-shape-green: var(--c-primary);
+  --c-shape-gray: #e3e6dd;
+
   --radius-l: 24px;
   --radius-m: 16px;
   --radius-pill: 999px;
@@ -315,6 +319,69 @@ h3 {
   background: rgba(255, 255, 255, 0.9);
   padding: 6px 12px;
   border-radius: var(--radius-pill);
+}
+
+/* ---------- geometrische Deko-Formen hinter Fotos ---------- */
+
+.img-frame {
+  position: relative;
+}
+
+.img-frame .placeholder-img {
+  position: relative;
+  z-index: 1;
+}
+
+.shape-accents {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.shape-decor {
+  position: absolute;
+  opacity: 0;
+  transform: scale(0.4) rotate(var(--shape-rot, 0deg));
+  transform-origin: center;
+  transition: opacity 0.6s cubic-bezier(0.22, 0.9, 0.3, 1), transform 0.6s cubic-bezier(0.22, 0.9, 0.3, 1);
+  transition-delay: var(--shape-delay, 0s);
+}
+
+.shape-decor.is-visible {
+  opacity: 1;
+  transform: scale(1) rotate(var(--shape-rot, 0deg));
+}
+
+.shape-decor.shape-circle {
+  border-radius: 50%;
+}
+
+.shape-decor.shape-square,
+.shape-decor.shape-rectangle {
+  border-radius: 14px;
+}
+
+.shape-decor.shape-triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.shape-decor.shape-fill-green {
+  background: var(--c-shape-green);
+}
+
+.shape-decor.shape-fill-gray {
+  background: var(--c-shape-gray);
+}
+
+@media (max-width: 700px) {
+  .shape-decor {
+    transform: scale(0.3) rotate(var(--shape-rot, 0deg));
+  }
+
+  .shape-decor.is-visible {
+    transform: scale(0.75) rotate(var(--shape-rot, 0deg));
+  }
 }
 
 /* ---------- layout sections ---------- */
@@ -769,6 +836,11 @@ h3 {
   .typing-cursor {
     animation: none !important;
     opacity: 1;
+  }
+  .shape-decor {
+    transition: none !important;
+    opacity: 1;
+    transform: rotate(var(--shape-rot, 0deg)) !important;
   }
 }
 
