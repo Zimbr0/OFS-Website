@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { AltSection } from "@/components/AltSection";
-import { aktuellesEintraege } from "@/content/aktuelles";
+import { aktuellesEintraege, slugify } from "@/content/aktuelles";
 
 export const metadata: Metadata = { title: "Aktuelles" };
 
@@ -19,6 +19,7 @@ export default function AktuellesPage() {
       {aktuellesEintraege.map((eintrag, index) => (
         <AltSection
           key={eintrag.titel}
+          id={slugify(eintrag.titel)}
           index={index}
           title={eintrag.titel}
           text={eintrag.text}

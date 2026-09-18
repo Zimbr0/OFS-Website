@@ -11,13 +11,16 @@ type AltSectionProps = {
   datum?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  /** Anker-ID, z. B. damit von der Startseite direkt auf diesen Beitrag
+   * verlinkt werden kann (siehe NewsTile + slugify). */
+  id?: string;
 };
 
 // Abwechselnd angeordneter Bild+Text-Abschnitt, u. a. für "Unsere Schule /
 // Unser Kollegium / Unsere Betreuung" auf der Startseite und die
 // Aktuelles-Übersicht. Datum/Kategorie werden bewusst als normaler Text statt
 // als runde Badges dargestellt.
-export function AltSection({ index, title, text, imageSrc, kategorie, datum, ctaLabel, ctaHref }: AltSectionProps) {
+export function AltSection({ index, title, text, imageSrc, kategorie, datum, ctaLabel, ctaHref, id }: AltSectionProps) {
   const reverse = index % 2 === 1;
 
   const textBlock = (
@@ -47,7 +50,7 @@ export function AltSection({ index, title, text, imageSrc, kategorie, datum, cta
   const imageBlock = <PlaceholderImage height={420} src={imageSrc} index={index} />;
 
   return (
-    <section className={`wrap split section${reverse ? " split-reverse" : ""}`}>
+    <section id={id} className={`wrap split section${reverse ? " split-reverse" : ""}`}>
       {reverse ? (
         <>
           {textBlock}

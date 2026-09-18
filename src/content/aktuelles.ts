@@ -12,6 +12,18 @@ export type AktuellesEintrag = {
   text: string;
 };
 
+// Stabile Anker-ID pro Beitrag (z. B. für Links von der Startseite auf den
+// jeweiligen Abschnitt der Aktuelles-Übersicht), abgeleitet aus dem Titel.
+export function slugify(titel: string): string {
+  return titel
+    .toLowerCase()
+    .replace(/[äöüß]/g, (c) => ({ ä: "ae", ö: "oe", ü: "ue", ß: "ss" })[c] ?? c)
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export const aktuellesEintraege: AktuellesEintrag[] = [
   {
     titel: "Lego-Education-Kisten für den MINT-Unterricht",

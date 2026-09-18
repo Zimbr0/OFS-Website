@@ -61,11 +61,11 @@ export default function HomePage() {
 
       {/* AKTUELLES */}
       <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, flexWrap: "wrap" }}>
-          <SectionIntro title="Aktuelles" />
-          <Button href="/aktuelles">Alle Beiträge ansehen</Button>
-        </div>
+        <SectionIntro title="Aktuelles" />
         <NewsCarousel eintraege={aktuellesEintraege.slice(0, 8)} />
+        <Button href="/aktuelles" style={{ alignSelf: "center" }}>
+          Alle Beiträge ansehen
+        </Button>
       </section>
 
       {/* MARQUEE / SPONSOREN */}
