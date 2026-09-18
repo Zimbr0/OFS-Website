@@ -508,6 +508,9 @@ h3 {
 .section {
   padding-top: 72px;
   padding-bottom: 72px;
+  /* Platz für den Sticky-Header, wenn per Anker direkt hierher gesprungen
+     wird (z. B. von einer Aktuelles-Kachel auf der Startseite). */
+  scroll-margin-top: 96px;
 }
 
 .section-tight {
