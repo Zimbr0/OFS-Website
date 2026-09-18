@@ -29,11 +29,19 @@ export function PlaceholderImage({
   decorate = true,
   index,
 }: PlaceholderImageProps) {
+  // Die Formen von okre.org sind nahezu quadratisch und ihre Fotos in genau
+  // diesem Layout auch (~1:1) – die sichtbare Größe des "Ecken-Peek"-Effekts
+  // hängt direkt vom Seitenverhältnis des Fotos ab (die Form wird auf die
+  // Bildhöhe zugeschnitten). Bei dekorierten Bildern deshalb quadratisch
+  // statt fester Höhe, sonst würde die Form bei unserem breiteren Querformat
+  // viel stärker abgeschnitten als im Original.
+  const sizeStyle: CSSProperties = decorate ? { aspectRatio: "1 / 1" } : { height };
+
   const image = (
     <div
       className={`placeholder-img${src ? " has-photo" : ""}`}
       style={{
-        height,
+        ...sizeStyle,
         ...(src ? { backgroundImage: `url(${basePath}/images/${src})` } : undefined),
         ...style,
       }}
