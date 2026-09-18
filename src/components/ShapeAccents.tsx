@@ -1,57 +1,127 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
-type ShapeKind = "circle" | "square" | "rectangle" | "triangle";
 type ShapeColor = "green" | "gray";
 type Corner = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+
+// Exakte Formen von okre.org (wp-content/themes/okre/img/shapes/*.svg),
+// nachgebaut mit den Originalkoordinaten – nur die Füllfarbe wird durch
+// unser Grün/Grau ersetzt (per currentColor).
+type ShapeDef = {
+  viewBox: string;
+  node: ReactNode;
+};
+
+const SHAPE_BACK_PINK_SQUARE: ShapeDef = {
+  viewBox: "0 0 736 736",
+  node: <rect x="156.254" width="600" height="600" transform="rotate(15.0952 156.254 0)" fill="currentColor" />,
+};
+
+const SHAPE_BACK_NAVY_CIRCLE: ShapeDef = {
+  viewBox: "0 0 768 737",
+  node: <circle cx="300.039" cy="312.747" r="299.5" fill="currentColor" />,
+};
+
+const SHAPE_BACK_BLUE_STAR: ShapeDef = {
+  viewBox: "0 0 760 737",
+  node: (
+    <path
+      d="M589.41 32.137L704.521 620.991L116.171 736.004L263.608 382.727L0.555355 147.248L589.41 32.137Z"
+      fill="currentColor"
+    />
+  ),
+};
+
+const SHAPE_BACK_TURQUOISE_HOOK: ShapeDef = {
+  viewBox: "0 0 759 789",
+  node: (
+    <path
+      d="M641.667 533.135L758.135 98.4686L579.421 50.5821C442.962 14.0183 349.449 56.0781 323.03 154.675C309.241 206.138 320.09 256.236 355.212 296.212L207 416.667L641.667 533.135Z"
+      fill="currentColor"
+    />
+  ),
+};
+
+// Original-Canvas der drei "front"-Formen ist mit viel Leerraum exportiert
+// (734x727) – hier auf die tatsächliche Silhouette zugeschnitten (bounding
+// box der Originalkoordinaten + Verschiebung), damit sie im dominanten
+// Format erscheint statt winzig in der Ecke des Original-Canvas.
+const SHAPE_FRONT_BLUE_ARROW: ShapeDef = {
+  viewBox: "0 0 183.712 183.679",
+  node: (
+    <path
+      d="M197.823 726.712L159 581.823L303.765 543.033L273.06 633.676L342.712 687.889L197.823 726.712Z"
+      fill="currentColor"
+      transform="translate(-159 -543.033)"
+    />
+  ),
+};
+
+const SHAPE_FRONT_TURQUOISE_FLAG: ShapeDef = {
+  viewBox: "0 0 146.97 138.431",
+  node: (
+    <path
+      d="M104.927 718.969L73.8692 603.058L121.526 590.289C157.915 580.538 182.852 591.754 189.897 618.047C193.574 631.77 190.681 645.13 181.315 655.79L220.839 687.911L104.927 718.969Z"
+      fill="currentColor"
+      transform="translate(-73.8692 -580.538)"
+    />
+  ),
+};
+
+const SHAPE_FRONT_PINK_SQUARE: ShapeDef = {
+  viewBox: "0 0 169.371 169.371",
+  node: (
+    <rect
+      x="494.792"
+      y="550"
+      width="138.291"
+      height="138.291"
+      transform="translate(-458.9997 -550) rotate(15 494.792 550)"
+      fill="currentColor"
+    />
+  ),
+};
 
 type Layer = "back" | "front";
 
 type ShapeSpec = {
   layer: Layer;
-  kind: ShapeKind;
+  shape: ShapeDef;
   color: ShapeColor;
   corner: Corner;
-  /** Größe in % der Bildbreite/-höhe – bewusst groß, wie bei der Vorlage. */
+  /** Größe in % der Bildbreite/-höhe. */
   size: number;
-  /** Versatz in % über die Bildkante hinaus (negativ = schaut hervor). */
+  /** Versatz in % über die Bildkante hinaus (negativ = schaut hervor/liegt über dem Foto). */
   offset: number;
-  rotate?: number;
   delay?: number;
 };
 
-// Rechteckiger Umriss mit abgerundeten Ecken für das Dreieck (in einem
-// 0..100-Viewbox berechnet: jede Kante wird vor der Spitze verkürzt und die
-// Ecke per Quadratic-Bezier mit dem ursprünglichen Eckpunkt als Kontrollpunkt
-// verrundet), damit es zum restlichen, weichen Design passt.
-const ROUNDED_TRIANGLE_PATH =
-  "M 57.155 20.311 L 84.845 75.689 Q 92 90 76 90 L 24 90 Q 8 90 15.155 75.689 L 42.845 20.311 Q 50 6 57.155 20.311 Z";
-
-// Vier feste Kombinationen aus je einer Form "hinter" (liegt unter dem Foto,
-// schaut nur an der Kante hervor) und einer Form "vorne" (liegt über dem
-// Foto). Variante wird aus dem Bild-Seed abgeleitet, damit dieselbe Stelle
-// bei jedem Aufruf dieselbe Kombination zeigt.
+// Die fünf Formkombinationen von okre.org 1:1 übernommen (welche Form liegt
+// hinten/vorne, welche Ecke), nur mit unseren Farben statt ihrer Markenfarben.
+// Reihenfolge wird über den Bild-Index alterniert, damit nie zwei gleiche
+// Kombinationen aufeinanderfolgen.
 const VARIANTS: ShapeSpec[][] = [
-  // Hinweis: Die "front"-Form (liegt über dem Foto) steht nie unten links,
-  // weil dort die Bildunterschrift (placeholder-tag) sitzt und sonst
-  // verdeckt würde.
   [
-    { layer: "back", kind: "circle", color: "gray", corner: "bottom-left", size: 52, offset: -14, delay: 0 },
-    { layer: "front", kind: "square", color: "green", corner: "top-right", size: 38, offset: -6, rotate: 12, delay: 0.22 },
+    { layer: "back", shape: SHAPE_BACK_PINK_SQUARE, color: "gray", corner: "top-right", size: 58, offset: -20, delay: 0 },
+    { layer: "front", shape: SHAPE_FRONT_BLUE_ARROW, color: "green", corner: "bottom-left", size: 34, offset: -8, delay: 0.25 },
   ],
   [
-    { layer: "back", kind: "rectangle", color: "green", corner: "top-left", size: 46, offset: -12, rotate: -6, delay: 0 },
-    { layer: "front", kind: "triangle", color: "gray", corner: "bottom-right", size: 40, offset: -6, rotate: 8, delay: 0.22 },
+    { layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "green", corner: "top-left", size: 50, offset: -18, delay: 0 },
+    { layer: "front", shape: SHAPE_FRONT_TURQUOISE_FLAG, color: "gray", corner: "bottom-left", size: 30, offset: -6, delay: 0.25 },
   ],
   [
-    { layer: "back", kind: "triangle", color: "gray", corner: "bottom-left", size: 44, offset: -12, rotate: -10, delay: 0 },
-    { layer: "front", kind: "circle", color: "green", corner: "top-right", size: 42, offset: -6, delay: 0.22 },
+    { layer: "back", shape: SHAPE_BACK_TURQUOISE_HOOK, color: "gray", corner: "top-right", size: 52, offset: -18, delay: 0 },
+    { layer: "front", shape: SHAPE_FRONT_PINK_SQUARE, color: "green", corner: "bottom-right", size: 26, offset: -6, delay: 0.25 },
   ],
   [
-    { layer: "back", kind: "square", color: "green", corner: "bottom-right", size: 40, offset: -12, rotate: 10, delay: 0 },
-    { layer: "front", kind: "rectangle", color: "gray", corner: "top-left", size: 48, offset: -6, rotate: -8, delay: 0.22 },
+    { layer: "back", shape: SHAPE_BACK_BLUE_STAR, color: "green", corner: "top-right", size: 56, offset: -20, delay: 0 },
+    { layer: "front", shape: SHAPE_FRONT_TURQUOISE_FLAG, color: "gray", corner: "bottom-left", size: 30, offset: -6, delay: 0.25 },
+  ],
+  [
+    { layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "gray", corner: "top-left", size: 50, offset: -18, delay: 0 },
+    { layer: "front", shape: SHAPE_FRONT_PINK_SQUARE, color: "green", corner: "bottom-right", size: 26, offset: -6, delay: 0.25 },
   ],
 ];
 
@@ -63,40 +133,12 @@ function variantIndexFor(seed: string) {
   return Math.abs(hash) % VARIANTS.length;
 }
 
-function ShapeSvg({ kind }: { kind: ShapeKind }) {
-  switch (kind) {
-    case "circle":
-      return (
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-          <circle cx="50" cy="50" r="46" />
-        </svg>
-      );
-    case "square":
-      return (
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-          <rect x="6" y="6" width="88" height="88" rx="22" />
-        </svg>
-      );
-    case "rectangle":
-      return (
-        <svg viewBox="0 0 100 64" preserveAspectRatio="none">
-          <rect x="4" y="4" width="92" height="56" rx="18" />
-        </svg>
-      );
-    case "triangle":
-      return (
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-          <path d={ROUNDED_TRIANGLE_PATH} />
-        </svg>
-      );
-  }
-}
-
-// Zwei große geometrische Formen pro Bild: eine liegt hinter dem Foto und
+// Zwei Formen pro Bild – analog zu okre.org: eine liegt hinter dem Foto und
 // schaut nur an der Kante hervor, die andere liegt sichtbar über dem Foto.
 // Beide schieben sich von unten kommend ein (Translate + Fade), sobald das
-// Bild beim Scrollen in den sichtbaren Bereich kommt.
-export function ShapeAccents({ seed }: { seed: string }) {
+// Bild beim Scrollen in den sichtbaren Bereich kommt. `index` sorgt dafür,
+// dass aufeinanderfolgende Bilder nie dieselbe Kombination bekommen.
+export function ShapeAccents({ seed, index }: { seed: string; index?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -118,32 +160,47 @@ export function ShapeAccents({ seed }: { seed: string }) {
     return () => observer.disconnect();
   }, []);
 
-  const variant = VARIANTS[variantIndexFor(seed)];
+  const variantIndex = index !== undefined ? index % VARIANTS.length : variantIndexFor(seed);
+  const variant = VARIANTS[variantIndex];
 
   return (
     <div ref={ref} className="shape-accents" aria-hidden="true">
-      {variant.map((shape, i) => {
+      {variant.map((spec, i) => {
+        // `offset` beschreibt, wie weit die Form über die Bildkante hinaus-
+        // schaut, in % ihrer EIGENEN Größe. top/right/bottom/left würden
+        // Prozentwerte dagegen relativ zum (viel größeren) Elternelement
+        // auflösen und die Form je nach Bildbreite völlig unterschiedlich
+        // weit hinausschieben – deshalb wird die Form exakt an der Ecke
+        // (0/0) verankert und der Versatz per translate() nachgezogen, das
+        // sich auf die eigene Boxgröße bezieht.
+        const isTop = spec.corner.startsWith("top");
+        const isLeft = spec.corner.endsWith("left");
+        const ox = isLeft ? spec.offset : -spec.offset;
+        const oy = isTop ? spec.offset : -spec.offset;
+
         const style: CSSProperties = {
-          width: `${shape.size}%`,
-          height: shape.kind === "rectangle" ? `${shape.size * 0.64}%` : `${shape.size}%`,
-          "--shape-rot": `${shape.rotate ?? 0}deg`,
-          "--shape-delay": `${shape.delay ?? 0}s`,
+          width: `${spec.size}%`,
+          height: `${spec.size}%`,
+          color: `var(--c-shape-${spec.color})`,
+          "--shape-delay": `${spec.delay ?? 0}s`,
+          "--shape-ox": `${ox}%`,
+          "--shape-oy": `${oy}%`,
         } as CSSProperties;
 
-        if (shape.corner.startsWith("top")) style.top = `${shape.offset}%`;
-        else style.bottom = `${shape.offset}%`;
-        if (shape.corner.endsWith("left")) style.left = `${shape.offset}%`;
-        else style.right = `${shape.offset}%`;
+        if (isTop) style.top = 0;
+        else style.bottom = 0;
+        if (isLeft) style.left = 0;
+        else style.right = 0;
 
         return (
           <span
             key={i}
-            className={`shape-decor shape-layer-${shape.layer} shape-fill-${shape.color}${
-              visible ? " is-visible" : ""
-            }`}
+            className={`shape-decor shape-layer-${spec.layer}${visible ? " is-visible" : ""}`}
             style={style}
           >
-            <ShapeSvg kind={shape.kind} />
+            <svg viewBox={spec.shape.viewBox} preserveAspectRatio="xMidYMid meet">
+              {spec.shape.node}
+            </svg>
           </span>
         );
       })}

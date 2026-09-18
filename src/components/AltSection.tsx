@@ -45,7 +45,7 @@ export function AltSection({ index, title, text, imageLabel, imageSrc, kategorie
     </Reveal>
   );
 
-  const imageBlock = <PlaceholderImage label={imageLabel} height={420} src={imageSrc} />;
+  const imageBlock = <PlaceholderImage label={imageLabel} height={420} src={imageSrc} index={index} />;
 
   return (
     <section className={`wrap split section${reverse ? " split-reverse" : ""}`}>

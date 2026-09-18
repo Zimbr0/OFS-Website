@@ -19,6 +19,8 @@
   --radius-l: 24px;
   --radius-m: 16px;
   --radius-pill: 999px;
+  /* dezente Eckenrundung für Buttons, wie bei okre.org (keine Pillenform) */
+  --radius-btn: 10px;
 
   --max-width: 1240px;
 
@@ -27,6 +29,15 @@
 
 * {
   box-sizing: border-box;
+}
+
+/* Deko-Formen dürfen bewusst leicht über die Bildkante/den Viewport-Rand
+   hinausragen (wie bei der Vorlage) – ohne horizontalen Scrollbalken. Auf
+   beiden Elementen gesetzt, da je nach Browser html oder body der
+   "root scroller" ist. */
+html,
+body {
+  overflow-x: hidden;
 }
 
 body {
@@ -49,7 +60,9 @@ img {
 .wrap {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 24px;
+  /* so viel Platz an den Seiten wie bei okre.org, damit die Deko-Formen an
+     den Bildkanten Raum zum Wirken haben */
+  padding: 0 32px;
 }
 
 /* ---------- typography ---------- */
@@ -82,28 +95,28 @@ h3 {
 }
 
 .h1 {
-  font-size: clamp(34px, 5.2vw, 66px);
+  font-size: clamp(30px, 4.8vw, 58px);
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.03em;
 }
 
 .h2 {
-  font-size: clamp(28px, 3.6vw, 42px);
+  font-size: clamp(25px, 3.2vw, 37px);
   font-weight: 800;
   line-height: 1.06;
   letter-spacing: -0.02em;
 }
 
 .h3 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
   line-height: 1.25;
   letter-spacing: -0.01em;
 }
 
 .body-l {
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 500;
   line-height: 1.55;
   color: var(--c-ink-soft);
@@ -111,7 +124,7 @@ h3 {
 }
 
 .body-m {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 1.6;
   color: var(--c-ink-soft);
@@ -124,11 +137,11 @@ h3 {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  height: 54px;
-  padding: 0 24px;
-  border-radius: var(--radius-pill);
+  height: 52px;
+  padding: 0 22px;
+  border-radius: var(--radius-btn);
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   border: 1.5px solid var(--c-line);
   background: var(--c-bg);
@@ -154,9 +167,9 @@ h3 {
 }
 
 .btn-sm {
-  height: 46px;
-  padding: 0 20px;
-  font-size: 15px;
+  height: 44px;
+  padding: 0 18px;
+  font-size: 14px;
 }
 
 /* ---------- badges ---------- */
@@ -287,7 +300,6 @@ h3 {
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.02em;
-  border-radius: var(--radius-l);
   background: var(--c-mint);
   overflow: hidden;
   min-height: 220px;
@@ -315,7 +327,10 @@ h3 {
 }
 
 .placeholder-tag {
+  /* eigener, hoher z-index-Layer (siehe unten), damit die Bildunterschrift
+     nie von einer darüberliegenden Deko-Form verdeckt wird */
   position: relative;
+  z-index: 3;
   background: rgba(255, 255, 255, 0.9);
   padding: 6px 12px;
   border-radius: var(--radius-pill);
@@ -327,9 +342,11 @@ h3 {
   position: relative;
 }
 
+/* bewusst kein eigener Stacking-Context (kein z-index hier): so kann die
+   Bildunterschrift (.placeholder-tag) mit ihrem eigenen z-index über die
+   "front"-Form hinausragen, statt in der des Fotos gefangen zu sein */
 .img-frame .placeholder-img {
   position: relative;
-  z-index: 1;
 }
 
 .shape-accents {
@@ -341,21 +358,22 @@ h3 {
 .shape-decor {
   position: absolute;
   opacity: 0;
-  transform: translateY(3.5rem);
+  /* translate() bezieht sich auf die eigene Boxgröße: erst der permanente
+     Eck-Versatz (--shape-ox/--shape-oy), danach das Einflug-translateY */
+  transform: translate(var(--shape-ox, 0), var(--shape-oy, 0)) translateY(3.5rem);
   transition: opacity 0.9s cubic-bezier(0.22, 0.9, 0.3, 1), transform 0.9s cubic-bezier(0.22, 0.9, 0.3, 1);
   transition-delay: var(--shape-delay, 0s);
 }
 
 .shape-decor.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(var(--shape-ox, 0), var(--shape-oy, 0)) translateY(0);
 }
 
 .shape-decor svg {
   display: block;
   width: 100%;
   height: 100%;
-  transform: rotate(var(--shape-rot, 0deg));
 }
 
 /* liegt hinter dem Foto – nur der über die Kante hinausragende Teil ist sichtbar */
@@ -366,14 +384,6 @@ h3 {
 /* liegt sichtbar über dem Foto, wie bei der Vorlage */
 .shape-decor.shape-layer-front {
   z-index: 2;
-}
-
-.shape-decor.shape-fill-green svg {
-  fill: var(--c-shape-green);
-}
-
-.shape-decor.shape-fill-gray svg {
-  fill: var(--c-shape-gray);
 }
 
 /* ---------- layout sections ---------- */
@@ -832,7 +842,7 @@ h3 {
   .shape-decor {
     transition: none !important;
     opacity: 1;
-    transform: none !important;
+    transform: translate(var(--shape-ox, 0), var(--shape-oy, 0)) !important;
   }
 }
 

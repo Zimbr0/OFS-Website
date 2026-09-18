@@ -11,6 +11,9 @@ type PlaceholderImageProps = {
   /** Geometrische Formen, die an den Ecken hervorschauen (Standard: an). Bei
    * kleinen Foto-Kacheln (z. B. Klassenfotos im Grid) auf false setzen. */
   decorate?: boolean;
+  /** Position in einer Liste (z. B. AltSection-Index) – sorgt dafür, dass
+   * aufeinanderfolgende Bilder nie dieselbe Formen-Kombination bekommen. */
+  index?: number;
 };
 
 // Steht für ein echtes Foto, solange keins vorliegt. Ist ein Platzhalterfoto
@@ -24,6 +27,7 @@ export function PlaceholderImage({
   style,
   src,
   decorate = true,
+  index,
 }: PlaceholderImageProps) {
   const image = (
     <div
@@ -46,7 +50,7 @@ export function PlaceholderImage({
           halterfoto – echtes Foto folgt") dagegen nicht – als Seed daher
           bevorzugt src verwenden, damit benachbarte Bilder unterschiedliche
           Formen bekommen. */}
-      <ShapeAccents seed={src ?? label} />
+      <ShapeAccents seed={src ?? label} index={index} />
       {image}
     </div>
   );
