@@ -16,49 +16,30 @@ const COLOR_HEX: Record<ShapeColor, string> = {
 };
 
 type ShapeDef = {
-  /** Viewbox der Original-Datei von okre.org (wp-content/themes/okre/img/shapes/*.svg) – unverändert, damit die Position der Form relativ zur Box exakt stimmt. */
   viewBox: string;
-  /** Original-Pfad/-Rect-Markup, "COLOR" wird durch den Hex-Wert ersetzt. */
+  /** Original-Rect/-Polygon-Markup, "COLOR" wird durch den Hex-Wert ersetzt. */
   markup: string;
 };
 
-const SHAPE_BACK_PINK_SQUARE: ShapeDef = {
-  viewBox: "0 0 736 736",
-  markup: `<rect x="156.254" width="600" height="600" transform="rotate(15.0952 156.254 0)" fill="COLOR"/>`,
+// Eigene, von "OFS" abgeleitete Formfamilie (ersetzt die zuvor von okre.org
+// übernommenen Formen): dieselbe Reduktion, die okre.org bei O-K-R-E nutzt –
+// ein Quadrat, dem 0 oder 1 rechteckige Ecke fehlt. O bleibt das volle
+// Quadrat (wie okre.org es bei E macht), F fehlt die Ecke unten rechts, S
+// ist die horizontal gespiegelte Version davon (Ecke unten links). Alle drei
+// auf demselben quadratischen 150x150-Raster, damit nichts verzerrt wird.
+const SHAPE_O: ShapeDef = {
+  viewBox: "0 0 150 150",
+  markup: `<rect x="0" y="0" width="150" height="150" fill="COLOR"/>`,
 };
 
-const SHAPE_BACK_NAVY_CIRCLE: ShapeDef = {
-  viewBox: "0 0 768 737",
-  markup: `<circle cx="300.039" cy="312.747" r="299.5" fill="COLOR"/>`,
+const SHAPE_F: ShapeDef = {
+  viewBox: "0 0 150 150",
+  markup: `<polygon points="0,0 150,0 150,45 60,45 60,150 0,150" fill="COLOR"/>`,
 };
 
-const SHAPE_BACK_BLUE_STAR: ShapeDef = {
-  viewBox: "0 0 760 737",
-  markup: `<path d="M589.41 32.137L704.521 620.991L116.171 736.004L263.608 382.727L0.555355 147.248L589.41 32.137Z" fill="COLOR"/>`,
-};
-
-const SHAPE_BACK_TURQUOISE_HOOK: ShapeDef = {
-  viewBox: "0 0 759 789",
-  markup: `<path d="M641.667 533.135L758.135 98.4686L579.421 50.5821C442.962 14.0183 349.449 56.0781 323.03 154.675C309.241 206.138 320.09 256.236 355.212 296.212L207 416.667L641.667 533.135Z" fill="COLOR"/>`,
-};
-
-// Original-Canvas (734x727) bewusst NICHT zugeschnitten: die exakte
-// Position der Form kommt gerade daher, dass sie innerhalb dieses vollen
-// Canvas an genau dieser Stelle sitzt und die Box (s.u.) sie entsprechend
-// ausschnitthaft zeigt.
-const SHAPE_FRONT_BLUE_ARROW: ShapeDef = {
-  viewBox: "0 0 734 727",
-  markup: `<path d="M197.823 726.712L159 581.823L303.765 543.033L273.06 633.676L342.712 687.889L197.823 726.712Z" fill="COLOR"/>`,
-};
-
-const SHAPE_FRONT_TURQUOISE_FLAG: ShapeDef = {
-  viewBox: "0 0 734 727",
-  markup: `<path d="M104.927 718.969L73.8692 603.058L121.526 590.289C157.915 580.538 182.852 591.754 189.897 618.047C193.574 631.77 190.681 645.13 181.315 655.79L220.839 687.911L104.927 718.969Z" fill="COLOR"/>`,
-};
-
-const SHAPE_FRONT_PINK_SQUARE: ShapeDef = {
-  viewBox: "0 0 734 727",
-  markup: `<rect x="494.792" y="550" width="138.291" height="138.291" transform="rotate(15 494.792 550)" fill="COLOR"/>`,
+const SHAPE_S: ShapeDef = {
+  viewBox: "0 0 150 150",
+  markup: `<polygon points="0,0 150,0 150,150 90,150 90,45 0,45" fill="COLOR"/>`,
 };
 
 type ShapeSpec = {
@@ -66,34 +47,41 @@ type ShapeSpec = {
   shape: ShapeDef;
   color: ShapeColor;
   corner: Corner;
+  /** Größe in % der Fotobreite/-höhe. */
+  size: number;
   delay?: number;
 };
 
-// Die fünf Formkombinationen von okre.org 1:1 übernommen (welche Form liegt
-// hinten/vorne, welche Ecke) – nur mit unseren Farben statt ihrer
-// Markenfarben. Größe/Position sind bei allen identisch (siehe CSS:
-// width/height 100%, Versatz -10%), exakt wie im Original-CSS
-// (.mediaimg__img--shapes::before/::after).
+// Sechs Kombinationen aus je zwei der drei OFS-Formen (nie zweimal dieselbe
+// im selben Bild), Ecken und Farben abwechselnd. Position/Versatz folgen
+// weiter dem okre.org-Mechanismus (Box in Fotogröße, 10% über die Kante
+// hinaus versetzt) – die Formen selbst sind jetzt aber randlos auf ihrem
+// eigenen Quadrat, darum deutlich kleiner skaliert (sonst würde eine Form
+// fast das ganze Foto bedecken).
 const VARIANTS: ShapeSpec[][] = [
   [
-    { layer: "back", shape: SHAPE_BACK_PINK_SQUARE, color: "gray", corner: "top-right", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_BLUE_ARROW, color: "green", corner: "bottom-left", delay: 0.5 },
+    { layer: "back", shape: SHAPE_O, color: "gray", corner: "top-right", size: 48, delay: 0 },
+    { layer: "front", shape: SHAPE_F, color: "green", corner: "bottom-left", size: 42, delay: 0.5 },
   ],
   [
-    { layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "green", corner: "top-left", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_TURQUOISE_FLAG, color: "gray", corner: "bottom-left", delay: 0.5 },
+    { layer: "back", shape: SHAPE_F, color: "green", corner: "top-left", size: 46, delay: 0 },
+    { layer: "front", shape: SHAPE_S, color: "gray", corner: "bottom-left", size: 40, delay: 0.5 },
   ],
   [
-    { layer: "back", shape: SHAPE_BACK_TURQUOISE_HOOK, color: "gray", corner: "top-right", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_PINK_SQUARE, color: "green", corner: "bottom-right", delay: 0.5 },
+    { layer: "back", shape: SHAPE_S, color: "gray", corner: "top-right", size: 50, delay: 0 },
+    { layer: "front", shape: SHAPE_O, color: "green", corner: "bottom-right", size: 38, delay: 0.5 },
   ],
   [
-    { layer: "back", shape: SHAPE_BACK_BLUE_STAR, color: "green", corner: "top-right", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_TURQUOISE_FLAG, color: "gray", corner: "bottom-left", delay: 0.5 },
+    { layer: "back", shape: SHAPE_O, color: "green", corner: "top-left", size: 44, delay: 0 },
+    { layer: "front", shape: SHAPE_S, color: "gray", corner: "bottom-right", size: 42, delay: 0.5 },
   ],
   [
-    { layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "gray", corner: "top-left", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_PINK_SQUARE, color: "green", corner: "bottom-right", delay: 0.5 },
+    { layer: "back", shape: SHAPE_F, color: "gray", corner: "top-right", size: 48, delay: 0 },
+    { layer: "front", shape: SHAPE_O, color: "green", corner: "bottom-left", size: 40, delay: 0.5 },
+  ],
+  [
+    { layer: "back", shape: SHAPE_S, color: "green", corner: "top-left", size: 46, delay: 0 },
+    { layer: "front", shape: SHAPE_F, color: "gray", corner: "bottom-right", size: 40, delay: 0.5 },
   ],
 ];
 
@@ -113,12 +101,8 @@ function shapeBackgroundUrl(shape: ShapeDef, color: ShapeColor) {
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
 
-// Zwei Formen pro Bild – exakt wie bei okre.org: eine liegt hinter dem Foto
-// und schaut nur an der Kante hervor, die andere liegt sichtbar über dem
-// Foto. Beide Boxen sind exakt so groß wie das Foto selbst (100%/100%) und
-// um 10% über die jeweilige Kante hinaus versetzt; die Form füllt die Box
-// nur zu einem Teil (kommt aus ihrem eigenen, größeren Original-Canvas),
-// wodurch der bekannte "Ecken-Peek"-Effekt entsteht. Beide schieben sich
+// Zwei OFS-Formen pro Bild: eine liegt hinter dem Foto und schaut nur an der
+// Kante hervor, die andere liegt sichtbar über dem Foto. Beide schieben sich
 // von unten kommend ein, sobald das Bild beim Scrollen sichtbar wird.
 // `index` sorgt dafür, dass aufeinanderfolgende Bilder nie dieselbe
 // Kombination bekommen.
@@ -151,6 +135,8 @@ export function ShapeAccents({ seed, index }: { seed: string; index?: number }) 
     <div ref={ref} className="shape-accents" aria-hidden="true">
       {variant.map((spec, i) => {
         const style: CSSProperties = {
+          width: `${spec.size}%`,
+          height: `${spec.size}%`,
           backgroundImage: shapeBackgroundUrl(spec.shape, spec.color),
           "--shape-delay": `${spec.delay ?? 0}s`,
         } as CSSProperties;

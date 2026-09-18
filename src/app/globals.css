@@ -355,16 +355,14 @@ h3 {
   pointer-events: none;
 }
 
-/* Box exakt so groß wie das Foto (100%/100%), an einer Ecke um 10% über
-   dessen Kante hinaus versetzt – 1:1 der Mechanismus von okre.org
-   (.mediaimg__img--shapes::before/::after). Die Form selbst kommt aus ihrem
-   eigenen, größeren Original-Canvas (background-size:100% = Bildbreite,
-   Höhe im Original-Seitenverhältnis) und füllt die Box darum nur teilweise –
-   dadurch der "Ecken-Peek"-Effekt. */
+/* Box in % der Fotogröße (Breite/Höhe kommen inline von ShapeAccents), an
+   einer Ecke um 10% über die Fotokante hinaus versetzt – Positionierung wie
+   bei okre.org (.mediaimg__img--shapes::before/::after). Die OFS-Formen
+   selbst sind randlos auf ihrem eigenen quadratischen Raster gezeichnet und
+   füllen die Box darum komplett aus (kein Zuschneiden nötig, da Form- und
+   Foto-Seitenverhältnis beide 1:1 sind). */
 .shape-decor {
   position: absolute;
-  width: 100%;
-  height: 100%;
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: 0 0;
