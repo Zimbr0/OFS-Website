@@ -21,7 +21,7 @@ export default function KlassenPage() {
       <section className="wrap section grid grid-4">
         {klassen.map((klasse) => (
           <div className="card" key={klasse.name}>
-            <PlaceholderImage label={`Klassenfoto ${klasse.name}`} height={180} decorate={false} />
+            <PlaceholderImage height={180} decorate={false} />
             <div className="card-body" style={{ padding: 20, gap: 6 }}>
               <div className="h3">Klasse {klasse.name}</div>
               <p className="body-m">{klasse.lehrkraft}</p>

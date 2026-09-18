@@ -39,7 +39,7 @@ export default function BetreuungPage() {
       </div>
 
       <section className="wrap split section">
-        <PlaceholderImage label={`Foto: OGS „${ogs.name}“`} height={380} />
+        <PlaceholderImage height={380} />
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <h2 className="h2">„{ogs.name}“</h2>
           <p className="body-l" style={{ maxWidth: 520 }}>

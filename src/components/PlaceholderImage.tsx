@@ -3,7 +3,6 @@ import { basePath } from "@/lib/basePath";
 import { ShapeAccents } from "@/components/ShapeAccents";
 
 type PlaceholderImageProps = {
-  label?: string;
   height?: number;
   style?: CSSProperties;
   /** Dateiname unter public/images/, z. B. "hero-schulhof.jpg". */
@@ -16,13 +15,11 @@ type PlaceholderImageProps = {
   index?: number;
 };
 
-// Steht für ein echtes Foto, solange keins vorliegt. Ist ein Platzhalterfoto
-// (src) hinterlegt, wird es als Hintergrund gezeigt und das "Foto: ..."-Label
-// dient als Bildunterschrift/Quellenangabe statt als reiner Platzhaltertext.
-// Sobald die Schule eigene Fotos liefert, einfach die Datei in public/images/
-// austauschen und src entsprechend anpassen.
+// Steht für ein echtes Foto, solange keins vorliegt (schlichte Farbfläche,
+// ohne Platzhaltertext). Ist ein Foto (src) hinterlegt, wird es als
+// Hintergrund gezeigt. Sobald die Schule eigene Fotos liefert, einfach die
+// Datei in public/images/ austauschen und src entsprechend anpassen.
 export function PlaceholderImage({
-  label,
   height = 320,
   style,
   src,
@@ -45,20 +42,16 @@ export function PlaceholderImage({
         ...(src ? { backgroundImage: `url(${basePath}/images/${src})` } : undefined),
         ...style,
       }}
-    >
-      {label ? <span className="placeholder-tag">{label}</span> : null}
-    </div>
+    />
   );
 
   if (!decorate) return image;
 
   return (
     <div className="img-frame">
-      {/* src/label unterscheidet sich pro Bild, das generische Label ("Platz-
-          halterfoto – echtes Foto folgt") dagegen nicht – als Seed daher
-          bevorzugt src verwenden, damit benachbarte Bilder unterschiedliche
-          Formen bekommen. */}
-      <ShapeAccents seed={src ?? label ?? ""} index={index} />
+      {/* src unterscheidet sich pro Bild – als Seed verwenden, damit
+          benachbarte Bilder unterschiedliche Formen bekommen. */}
+      <ShapeAccents seed={src ?? ""} index={index} />
       {image}
     </div>
   );

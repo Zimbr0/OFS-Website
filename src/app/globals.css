@@ -48,10 +48,14 @@
 /* Deko-Formen dürfen bewusst leicht über die Bildkante/den Viewport-Rand
    hinausragen (wie bei der Vorlage) – ohne horizontalen Scrollbalken. Auf
    beiden Elementen gesetzt, da je nach Browser html oder body der
-   "root scroller" ist. */
+   "root scroller" ist. Bewusst "clip" statt "hidden": in Kombination mit
+   position:sticky (siehe .site-header) lässt "overflow-x: hidden" auf
+   html/body das vertikale (Momentum-)Scrollen in manchen Browsern immer
+   wieder abrupt stocken – "clip" unterbindet den horizontalen Überlauf
+   genauso, ohne diesen Sticky-Bug auszulösen. */
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -380,6 +384,12 @@ h3 {
   transition: box-shadow 0.15s ease;
 }
 
+/* bewusst eckig, 1:1 nach dem "Latest News"-Bereich von okre.org – hier
+   keine Eckenrundung wie sonst bei Bildern (siehe .placeholder-img) */
+.news-tile .placeholder-img {
+  border-radius: 0;
+}
+
 .news-tile:hover {
   box-shadow: 10px 10px 25px rgba(16, 36, 26, 0.15);
 }
@@ -418,16 +428,11 @@ h3 {
 
 .placeholder-img {
   position: relative;
-  display: flex;
-  align-items: flex-end;
-  padding: 18px;
-  color: var(--c-ink);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
   background: var(--c-mint);
   overflow: hidden;
   min-height: 220px;
+  /* gleiche Eckenrundung wie Buttons (--radius-btn), statt eigener Radien */
+  border-radius: var(--radius-btn);
 }
 
 .placeholder-img::after {
@@ -451,25 +456,14 @@ h3 {
   background: linear-gradient(180deg, transparent 55%, rgba(16, 36, 26, 0.35) 100%);
 }
 
-.placeholder-tag {
-  /* eigener, hoher z-index-Layer (siehe unten), damit die Bildunterschrift
-     nie von einer darüberliegenden Deko-Form verdeckt wird */
-  position: relative;
-  z-index: 3;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 6px 12px;
-  border-radius: var(--radius-pill);
-}
-
-/* ---------- geometrische Deko-Formen hinter/über Fotos ---------- */
+/* ---------- geometrische Deko-Formen hinter Fotos ---------- */
 
 .img-frame {
   position: relative;
 }
 
-/* bewusst kein eigener Stacking-Context (kein z-index hier): so kann die
-   Bildunterschrift (.placeholder-tag) mit ihrem eigenen z-index über die
-   "front"-Form hinausragen, statt in der des Fotos gefangen zu sein */
+/* position:relative reicht: als späteres Geschwisterelement im normalen
+   Fluss liegt das Foto ohnehin über der dahinterliegenden Deko-Form */
 .img-frame .placeholder-img {
   position: relative;
 }
@@ -507,11 +501,6 @@ h3 {
 /* liegt hinter dem Foto – nur der über die Kante hinausragende Teil ist sichtbar */
 .shape-decor.shape-layer-back {
   z-index: 0;
-}
-
-/* liegt sichtbar über dem Foto, wie bei der Vorlage */
-.shape-decor.shape-layer-front {
-  z-index: 2;
 }
 
 /* ---------- layout sections ---------- */
@@ -569,7 +558,9 @@ h3 {
 @media (max-width: 800px) {
   .split {
     grid-template-columns: 1fr;
-    gap: 32px;
+    /* genug Abstand, damit Bild und Text nie überlappen (auch mit der an der
+       oberen Bildecke hervorschauenden Deko-Form, siehe .shape-decor) */
+    gap: 40px;
   }
 }
 

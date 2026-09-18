@@ -38,7 +38,7 @@ export default function WirPage() {
       </div>
 
       <section id="kollegium" className="wrap split section">
-        <PlaceholderImage label={`Foto: Kollegium Schuljahr ${kollegium.schuljahr}`} height={420} />
+        <PlaceholderImage height={420} />
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <h2 className="h2">Ein Team mit vielen Talenten</h2>
           <p className="body-l" style={{ maxWidth: 560 }}>

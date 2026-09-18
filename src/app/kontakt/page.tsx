@@ -55,7 +55,7 @@ export default function KontaktPage() {
           </div>
         </div>
 
-        <PlaceholderImage label="Karte / Foto: Schuleingang" height={420} />
+        <PlaceholderImage height={420} />
       </section>
 
       <div className="wrap" style={{ paddingBottom: 72 }}>

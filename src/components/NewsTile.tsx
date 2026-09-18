@@ -14,11 +14,7 @@ type NewsTileProps = {
 export function NewsTile({ eintrag }: NewsTileProps) {
   return (
     <Link href="/aktuelles" className="news-tile">
-      <PlaceholderImage
-        label={eintrag.imageLabel}
-        decorate={false}
-        style={{ height: "auto", aspectRatio: "5 / 4" }}
-      />
+      <PlaceholderImage decorate={false} style={{ height: "auto", aspectRatio: "5 / 4" }} />
       <div className="news-tile-body">
         <span className="news-tile-category">{eintrag.kategorie}</span>
         <h3 className="news-tile-title">{eintrag.titel}</h3>

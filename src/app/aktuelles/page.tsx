@@ -24,7 +24,6 @@ export default function AktuellesPage() {
           text={eintrag.text}
           kategorie={eintrag.kategorie}
           datum={eintrag.datum}
-          imageLabel={eintrag.imageLabel}
         />
       ))}
 
