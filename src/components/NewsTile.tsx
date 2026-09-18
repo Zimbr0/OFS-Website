@@ -9,14 +9,19 @@ type NewsTileProps = {
 };
 
 // Kachel-Design für "Aktuelles", nachgebaut nach dem "Latest News"-Bereich
-// von okre.org: (fast) quadratisches Bild mit Formen-Akzenten, darunter
-// Kategorie, Titel und Datum. Alle Kacheln verlinken auf die vollständige
-// Aktuelles-Übersicht, da es (noch) keine einzelnen Beitragsseiten gibt.
+// von okre.org: (fast) quadratisches Bild, darunter Kategorie, Titel und
+// Datum. Alle Kacheln verlinken auf die vollständige Aktuelles-Übersicht,
+// da es (noch) keine einzelnen Beitragsseiten gibt.
 export function NewsTile({ eintrag, index }: NewsTileProps) {
   return (
     <Reveal delay={(index % 4) * 0.06}>
       <Link href="/aktuelles" className="news-tile">
-        <PlaceholderImage label={eintrag.imageLabel} index={index} />
+        <PlaceholderImage
+          label={eintrag.imageLabel}
+          decorate={false}
+          height={260}
+          style={{ borderRadius: "var(--radius-m)" }}
+        />
         <div className="news-tile-body">
           <span className="news-tile-category">{eintrag.kategorie}</span>
           <h3 className="news-tile-title">{eintrag.titel}</h3>
