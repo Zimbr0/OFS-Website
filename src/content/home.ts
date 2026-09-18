@@ -2,7 +2,7 @@
 // werden, ohne die Seiten-Struktur (src/app/page.tsx) anzufassen.
 
 export const hero = {
-  title: "ICH entwickeln, WIR stärken, MORGEN mitgestalten.",
+  title: "ICH entwickeln, WIR stärken, MORGEN gestalten.",
   intro:
     "Die Osterfeldschule ist die einzige komplett ebenerdige, barrierefreie Grundschule Unnas – mit MINT-Schwerpunkt, rund 146 Kindern in sieben jahrgangsbezogenen Klassen und einem Kollegium, das jedes Kind als wertvollen Teil der Gemeinschaft sieht.",
 };
