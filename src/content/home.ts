@@ -14,7 +14,6 @@ export const factSections = [
     text: "Im Doppeldorf gelegen, nahe eines Landschaftsschutzgebiets, mit eigener Bushaltestelle, Turnhalle und Sportplatz (SSV Mühlhausen) direkt nebenan. Wir unterrichten jahrgangsbezogen in sieben Klassen und nehmen auch Inklusionskinder und Kinder aus Zuwandererfamilien auf.",
     ctaLabel: "Mehr über die Schule",
     ctaHref: "/wir",
-    imageLabel: "Platzhalterfoto – echtes Foto folgt",
     imageSrc: "unsere-schule.jpg",
   },
   {
@@ -22,7 +21,6 @@ export const factSections = [
     text: "Unser Kollegium besteht aus einem breit aufgestellten Team herzlicher Menschen mit verschiedenen Kompetenzen und Steckenpferden. Gelegentlich verstärken uns Studierende im Praxissemester und Lehramtsanwärter:innen. Inklusionsfachkräfte des SPI Unna unterstützen Kinder mit Förderbedarf im Alltag.",
     ctaLabel: "Team kennenlernen",
     ctaHref: "/wir#kollegium",
-    imageLabel: "Platzhalterfoto – echtes Foto folgt",
     imageSrc: "unser-kollegium.jpg",
   },
   {
@@ -30,7 +28,6 @@ export const factSections = [
     text: "Von der Frühbetreuung ab 7 Uhr über die Kurzbetreuung bis zur OGS „Schülerbande“ mit Mittagessen, Hausaufgabenzeit und AGs bis 16 Uhr – für jede Familie das passende Modell, getragen von einem festen, engagierten Team.",
     ctaLabel: "Betreuung entdecken",
     ctaHref: "/betreuung",
-    imageLabel: "Platzhalterfoto – echtes Foto folgt",
     imageSrc: "unsere-betreuung.jpg",
   },
 ];

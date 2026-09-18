@@ -26,7 +26,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <PlaceholderImage label="Platzhalterfoto – echtes Foto folgt" height={460} src="hero-schulhof.jpg" />
+        <PlaceholderImage height={460} src="hero-schulhof.jpg" />
       </section>
 
       <div className="wrap">
