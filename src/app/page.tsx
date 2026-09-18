@@ -3,7 +3,7 @@ import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { Marquee } from "@/components/Marquee";
 import { SectionIntro } from "@/components/SectionIntro";
 import { AltSection } from "@/components/AltSection";
-import { NewsTile } from "@/components/NewsTile";
+import { NewsCarousel } from "@/components/NewsCarousel";
 import { TypedHeroHeading } from "@/components/TypedHeroHeading";
 import { factSections, hero, leitspruch, partners } from "@/content/home";
 import { aktuellesEintraege } from "@/content/aktuelles";
@@ -60,16 +60,12 @@ export default function HomePage() {
       </div>
 
       {/* AKTUELLES */}
-      <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 36 }}>
+      <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 28 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, flexWrap: "wrap" }}>
           <SectionIntro title="Aktuelles" />
           <Button href="/aktuelles">Alle Beiträge ansehen</Button>
         </div>
-        <div className="grid grid-4" style={{ gap: 28 }}>
-          {aktuellesEintraege.slice(0, 4).map((eintrag, index) => (
-            <NewsTile key={eintrag.titel} eintrag={eintrag} index={index} />
-          ))}
-        </div>
+        <NewsCarousel eintraege={aktuellesEintraege.slice(0, 8)} />
       </section>
 
       {/* MARQUEE / SPONSOREN */}
