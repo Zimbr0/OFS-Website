@@ -1018,10 +1018,10 @@ h3 {
 }
 
 @media (max-width: 800px) {
-  /* zusätzlich zum .split-Gap (siehe dort), damit die Buttons nicht direkt
-     an das darunter gestapelte Hero-Bild stoßen */
+  /* zusätzlich zum .split-Gap (40px, siehe dort) auf 100px Gesamtabstand
+     zwischen Buttons und dem darunter gestapelten Hero-Bild */
   .hero-actions {
-    margin-bottom: 20px;
+    margin-bottom: 60px;
   }
 }
 

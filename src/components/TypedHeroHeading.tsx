@@ -7,7 +7,7 @@ type Line = { keyword: string; rest: string; accent?: boolean };
 const lines: Line[] = [
   { keyword: "ICH", rest: " entwickeln," },
   { keyword: "WIR", rest: " stärken," },
-  { keyword: "MORGEN", rest: " mitgestalten.", accent: true },
+  { keyword: "MORGEN", rest: " gestalten.", accent: true },
 ];
 
 // [Zeile, Zeichen] – lines.length als Zeile bedeutet "fertig getippt".
