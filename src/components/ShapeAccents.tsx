@@ -16,13 +16,12 @@ const COLOR_HEX: Record<ShapeColor, string> = {
 };
 
 type ShapeDef = {
-  /** Viewbox – unverändert zur jeweiligen okre.org-Originalform, damit Position/Größe relativ zur Box exakt gleich bleiben. */
+  /** Viewbox der Original-Datei von okre.org (wp-content/themes/okre/img/shapes/*.svg) – unverändert, damit die Position der Form relativ zur Box exakt stimmt. */
   viewBox: string;
-  /** Pfad/Rect-Markup, "COLOR" wird durch den Hex-Wert ersetzt. */
+  /** Original-Pfad/-Rect-Markup, "COLOR" wird durch den Hex-Wert ersetzt. */
   markup: string;
 };
 
-// Quadrat und Kreis bleiben unverändert wie zuvor.
 const SHAPE_BACK_PINK_SQUARE: ShapeDef = {
   viewBox: "0 0 736 736",
   markup: `<rect x="156.254" width="600" height="600" transform="rotate(15.0952 156.254 0)" fill="COLOR"/>`,
@@ -33,35 +32,28 @@ const SHAPE_BACK_NAVY_CIRCLE: ShapeDef = {
   markup: `<circle cx="300.039" cy="312.747" r="299.5" fill="COLOR"/>`,
 };
 
-// Die beiden abstrakten, winkligen "K/R-artigen" Formen von okre.org sind
-// hier durch unsere eigenen Initialen F und S ersetzt (Quadrat mit fehlender
-// Ecke unten rechts bzw. unten links) – das Quadrat und der Kreis bleiben
-// unverändert. Viewbox, Bounding-Box-Größe/-Position innerhalb der Viewbox,
-// Ecke, Farbe und Timing sind exakt wie bei der zuvor dort sitzenden Form
-// (blue-star bzw. turquoise-hook) übernommen, damit sich am Erscheinungsbild
-// sonst nichts ändert.
-const SHAPE_BACK_F: ShapeDef = {
+const SHAPE_BACK_BLUE_STAR: ShapeDef = {
   viewBox: "0 0 760 737",
-  markup: `<polygon points="0.555,32.137 704.521,32.137 704.521,243.297 282.142,243.297 282.142,736.004 0.555,736.004" fill="COLOR"/>`,
+  markup: `<path d="M589.41 32.137L704.521 620.991L116.171 736.004L263.608 382.727L0.555355 147.248L589.41 32.137Z" fill="COLOR"/>`,
 };
 
-const SHAPE_BACK_S: ShapeDef = {
+const SHAPE_BACK_TURQUOISE_HOOK: ShapeDef = {
   viewBox: "0 0 759 789",
-  markup: `<polygon points="207,14.018 758.135,14.018 758.135,533.135 537.681,533.135 537.681,169.753 207,169.753" fill="COLOR"/>`,
+  markup: `<path d="M641.667 533.135L758.135 98.4686L579.421 50.5821C442.962 14.0183 349.449 56.0781 323.03 154.675C309.241 206.138 320.09 256.236 355.212 296.212L207 416.667L641.667 533.135Z" fill="COLOR"/>`,
 };
 
 // Original-Canvas (734x727) bewusst NICHT zugeschnitten: die exakte
 // Position der Form kommt gerade daher, dass sie innerhalb dieses vollen
 // Canvas an genau dieser Stelle sitzt und die Box (s.u.) sie entsprechend
 // ausschnitthaft zeigt.
-const SHAPE_FRONT_F: ShapeDef = {
+const SHAPE_FRONT_BLUE_ARROW: ShapeDef = {
   viewBox: "0 0 734 727",
-  markup: `<polygon points="159,543.033 342.712,543.033 342.712,598.137 232.485,598.137 232.485,726.712 159,726.712" fill="COLOR"/>`,
+  markup: `<path d="M197.823 726.712L159 581.823L303.765 543.033L273.06 633.676L342.712 687.889L197.823 726.712Z" fill="COLOR"/>`,
 };
 
-const SHAPE_FRONT_S: ShapeDef = {
+const SHAPE_FRONT_TURQUOISE_FLAG: ShapeDef = {
   viewBox: "0 0 734 727",
-  markup: `<polygon points="73.869,580.538 220.839,580.538 220.839,718.969 162.051,718.969 162.051,622.067 73.869,622.067" fill="COLOR"/>`,
+  markup: `<path d="M104.927 718.969L73.8692 603.058L121.526 590.289C157.915 580.538 182.852 591.754 189.897 618.047C193.574 631.77 190.681 645.13 181.315 655.79L220.839 687.911L104.927 718.969Z" fill="COLOR"/>`,
 };
 
 const SHAPE_FRONT_PINK_SQUARE: ShapeDef = {
@@ -77,26 +69,27 @@ type ShapeSpec = {
   delay?: number;
 };
 
-// Wie zuvor: fünf Formkombinationen (welche Form liegt hinten/vorne, welche
-// Ecke, welche Farbe) – unverändert bis auf den Tausch der beiden
-// abstrakten Formen gegen F und S. Größe/Position bei allen identisch
-// (siehe CSS: width/height 100%, Versatz -10%).
+// Die fünf Formkombinationen von okre.org 1:1 übernommen (welche Form liegt
+// hinten/vorne, welche Ecke) – nur mit unseren Farben statt ihrer
+// Markenfarben. Größe/Position sind bei allen identisch (siehe CSS:
+// width/height 100%, Versatz -10%), exakt wie im Original-CSS
+// (.mediaimg__img--shapes::before/::after).
 const VARIANTS: ShapeSpec[][] = [
   [
     { layer: "back", shape: SHAPE_BACK_PINK_SQUARE, color: "gray", corner: "top-right", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_F, color: "green", corner: "bottom-left", delay: 0.5 },
+    { layer: "front", shape: SHAPE_FRONT_BLUE_ARROW, color: "green", corner: "bottom-left", delay: 0.5 },
   ],
   [
     { layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "green", corner: "top-left", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_S, color: "gray", corner: "bottom-left", delay: 0.5 },
+    { layer: "front", shape: SHAPE_FRONT_TURQUOISE_FLAG, color: "gray", corner: "bottom-left", delay: 0.5 },
   ],
   [
-    { layer: "back", shape: SHAPE_BACK_S, color: "gray", corner: "top-right", delay: 0 },
+    { layer: "back", shape: SHAPE_BACK_TURQUOISE_HOOK, color: "gray", corner: "top-right", delay: 0 },
     { layer: "front", shape: SHAPE_FRONT_PINK_SQUARE, color: "green", corner: "bottom-right", delay: 0.5 },
   ],
   [
-    { layer: "back", shape: SHAPE_BACK_F, color: "green", corner: "top-right", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_S, color: "gray", corner: "bottom-left", delay: 0.5 },
+    { layer: "back", shape: SHAPE_BACK_BLUE_STAR, color: "green", corner: "top-right", delay: 0 },
+    { layer: "front", shape: SHAPE_FRONT_TURQUOISE_FLAG, color: "gray", corner: "bottom-left", delay: 0.5 },
   ],
   [
     { layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "gray", corner: "top-left", delay: 0 },
