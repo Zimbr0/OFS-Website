@@ -32,28 +32,37 @@ const SHAPE_BACK_NAVY_CIRCLE: ShapeDef = {
   markup: `<circle cx="300.039" cy="312.747" r="299.5" fill="COLOR"/>`,
 };
 
-const SHAPE_BACK_BLUE_STAR: ShapeDef = {
-  viewBox: "0 0 760 737",
-  markup: `<path d="M589.41 32.137L704.521 620.991L116.171 736.004L263.608 382.727L0.555355 147.248L589.41 32.137Z" fill="COLOR"/>`,
+// Ersetzt die beiden abstrakten okre-Formen (blue-star/turquoise-hook) durch
+// unsere eigenen Initialen F und S (public/shapes/ofs-f.svg, ofs-s.svg).
+// Deren Canvas (397x397) ist bereits randlos/vollflächig gefüllt – genau wie
+// bei den ersetzten Formen (blue-star/turquoise-hook füllten ~93-99% ihrer
+// Viewbox) – daher hier 1:1 übernommen, keine zusätzliche Rotation
+// hinzugefügt (die ersetzten Formen hatten ebenfalls keine).
+const SHAPE_BACK_F: ShapeDef = {
+  viewBox: "0 0 397 397",
+  markup: `<path d="M0 0H397V125H202V195H317V320H202V397H0V0Z" fill="COLOR"/>`,
 };
 
-const SHAPE_BACK_TURQUOISE_HOOK: ShapeDef = {
-  viewBox: "0 0 759 789",
-  markup: `<path d="M641.667 533.135L758.135 98.4686L579.421 50.5821C442.962 14.0183 349.449 56.0781 323.03 154.675C309.241 206.138 320.09 256.236 355.212 296.212L207 416.667L641.667 533.135Z" fill="COLOR"/>`,
+const SHAPE_BACK_S: ShapeDef = {
+  viewBox: "0 0 397 397",
+  markup: `<path d="M0 0H397V86H163V156H397V397H0V0Z" fill="COLOR"/>`,
 };
 
 // Original-Canvas (734x727) bewusst NICHT zugeschnitten: die exakte
 // Position der Form kommt gerade daher, dass sie innerhalb dieses vollen
 // Canvas an genau dieser Stelle sitzt und die Box (s.u.) sie entsprechend
-// ausschnitthaft zeigt.
-const SHAPE_FRONT_BLUE_ARROW: ShapeDef = {
+// ausschnitthaft zeigt. F/S sind hier so skaliert und platziert, dass sie
+// exakt die Bounding Box füllen, die zuvor blue-arrow bzw. turquoise-flag
+// dort einnahm (gleiche Größe/Position wie vorher, keine zusätzliche
+// Rotation).
+const SHAPE_FRONT_F: ShapeDef = {
   viewBox: "0 0 734 727",
-  markup: `<path d="M197.823 726.712L159 581.823L303.765 543.033L273.06 633.676L342.712 687.889L197.823 726.712Z" fill="COLOR"/>`,
+  markup: `<polygon points="159,543.033 342.712,543.033 342.712,600.866 252.476,600.866 252.476,633.253 305.692,633.253 305.692,691.087 252.476,691.087 252.476,726.712 159,726.712" fill="COLOR"/>`,
 };
 
-const SHAPE_FRONT_TURQUOISE_FLAG: ShapeDef = {
+const SHAPE_FRONT_S: ShapeDef = {
   viewBox: "0 0 734 727",
-  markup: `<path d="M104.927 718.969L73.8692 603.058L121.526 590.289C157.915 580.538 182.852 591.754 189.897 618.047C193.574 631.77 190.681 645.13 181.315 655.79L220.839 687.911L104.927 718.969Z" fill="COLOR"/>`,
+  markup: `<polygon points="73.869,580.538 220.839,580.538 220.839,610.526 134.212,610.526 134.212,634.934 220.839,634.934 220.839,718.969 73.869,718.969" fill="COLOR"/>`,
 };
 
 const SHAPE_FRONT_PINK_SQUARE: ShapeDef = {
@@ -70,26 +79,28 @@ type ShapeSpec = {
 };
 
 // Die fünf Formkombinationen von okre.org 1:1 übernommen (welche Form liegt
-// hinten/vorne, welche Ecke) – nur mit unseren Farben statt ihrer
-// Markenfarben. Größe/Position sind bei allen identisch (siehe CSS:
-// width/height 100%, Versatz -10%), exakt wie im Original-CSS
+// hinten/vorne, welche Ecke) – Quadrat und Kreis unverändert, die beiden
+// abstrakten "K/R-artigen" Formen (blue-star/turquoise-hook,
+// blue-arrow/turquoise-flag) sind durch unsere F- und S-Initiale ersetzt.
+// Größe/Position sind bei allen identisch (siehe CSS: width/height 100%,
+// Versatz -10%), exakt wie im Original-CSS
 // (.mediaimg__img--shapes::before/::after).
 const VARIANTS: ShapeSpec[][] = [
   [
     { layer: "back", shape: SHAPE_BACK_PINK_SQUARE, color: "gray", corner: "top-right", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_BLUE_ARROW, color: "green", corner: "bottom-left", delay: 0.5 },
+    { layer: "front", shape: SHAPE_FRONT_F, color: "green", corner: "bottom-left", delay: 0.5 },
   ],
   [
     { layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "green", corner: "top-left", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_TURQUOISE_FLAG, color: "gray", corner: "bottom-left", delay: 0.5 },
+    { layer: "front", shape: SHAPE_FRONT_S, color: "gray", corner: "bottom-left", delay: 0.5 },
   ],
   [
-    { layer: "back", shape: SHAPE_BACK_TURQUOISE_HOOK, color: "gray", corner: "top-right", delay: 0 },
+    { layer: "back", shape: SHAPE_BACK_S, color: "gray", corner: "top-right", delay: 0 },
     { layer: "front", shape: SHAPE_FRONT_PINK_SQUARE, color: "green", corner: "bottom-right", delay: 0.5 },
   ],
   [
-    { layer: "back", shape: SHAPE_BACK_BLUE_STAR, color: "green", corner: "top-right", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_TURQUOISE_FLAG, color: "gray", corner: "bottom-left", delay: 0.5 },
+    { layer: "back", shape: SHAPE_BACK_F, color: "green", corner: "top-right", delay: 0 },
+    { layer: "front", shape: SHAPE_FRONT_S, color: "gray", corner: "bottom-left", delay: 0.5 },
   ],
   [
     { layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "gray", corner: "top-left", delay: 0 },
