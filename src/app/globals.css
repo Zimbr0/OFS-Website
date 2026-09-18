@@ -321,7 +321,7 @@ h3 {
   border-radius: var(--radius-pill);
 }
 
-/* ---------- geometrische Deko-Formen hinter Fotos ---------- */
+/* ---------- geometrische Deko-Formen hinter/über Fotos ---------- */
 
 .img-frame {
   position: relative;
@@ -335,53 +335,45 @@ h3 {
 .shape-accents {
   position: absolute;
   inset: 0;
-  z-index: 0;
   pointer-events: none;
 }
 
 .shape-decor {
   position: absolute;
   opacity: 0;
-  transform: scale(0.4) rotate(var(--shape-rot, 0deg));
-  transform-origin: center;
-  transition: opacity 0.6s cubic-bezier(0.22, 0.9, 0.3, 1), transform 0.6s cubic-bezier(0.22, 0.9, 0.3, 1);
+  transform: translateY(3.5rem);
+  transition: opacity 0.9s cubic-bezier(0.22, 0.9, 0.3, 1), transform 0.9s cubic-bezier(0.22, 0.9, 0.3, 1);
   transition-delay: var(--shape-delay, 0s);
 }
 
 .shape-decor.is-visible {
   opacity: 1;
-  transform: scale(1) rotate(var(--shape-rot, 0deg));
+  transform: translateY(0);
 }
 
-.shape-decor.shape-circle {
-  border-radius: 50%;
+.shape-decor svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: rotate(var(--shape-rot, 0deg));
 }
 
-.shape-decor.shape-square,
-.shape-decor.shape-rectangle {
-  border-radius: 14px;
+/* liegt hinter dem Foto – nur der über die Kante hinausragende Teil ist sichtbar */
+.shape-decor.shape-layer-back {
+  z-index: 0;
 }
 
-.shape-decor.shape-triangle {
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+/* liegt sichtbar über dem Foto, wie bei der Vorlage */
+.shape-decor.shape-layer-front {
+  z-index: 2;
 }
 
-.shape-decor.shape-fill-green {
-  background: var(--c-shape-green);
+.shape-decor.shape-fill-green svg {
+  fill: var(--c-shape-green);
 }
 
-.shape-decor.shape-fill-gray {
-  background: var(--c-shape-gray);
-}
-
-@media (max-width: 700px) {
-  .shape-decor {
-    transform: scale(0.3) rotate(var(--shape-rot, 0deg));
-  }
-
-  .shape-decor.is-visible {
-    transform: scale(0.75) rotate(var(--shape-rot, 0deg));
-  }
+.shape-decor.shape-fill-gray svg {
+  fill: var(--c-shape-gray);
 }
 
 /* ---------- layout sections ---------- */
@@ -840,7 +832,7 @@ h3 {
   .shape-decor {
     transition: none !important;
     opacity: 1;
-    transform: rotate(var(--shape-rot, 0deg)) !important;
+    transform: none !important;
   }
 }
 
