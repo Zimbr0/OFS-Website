@@ -34,13 +34,14 @@ export function Header() {
     <header className="site-header">
       <div className="wrap site-header-inner">
         <Link href="/" className="logo">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={withAssetVersion(`${basePath}/logo.png`)}
-            alt="Logo der Osterfeldschule Unna"
-            width={116}
-            height={120}
+          <span
             className="logo-mark"
+            role="img"
+            aria-label="Logo der Osterfeldschule Unna"
+            style={{
+              WebkitMaskImage: `url(${withAssetVersion(`${basePath}/logo.png`)})`,
+              maskImage: `url(${withAssetVersion(`${basePath}/logo.png`)})`,
+            }}
           />
           <span className="logo-text">
             <strong>Osterfeldschule</strong>
@@ -78,14 +79,15 @@ export function Header() {
         <div className="nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
           <div className="nav-drawer-header">
             <Link href="/" className="logo" onClick={() => setOpen(false)}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={withAssetVersion(`${basePath}/logo.png`)}
-                alt="Logo der Osterfeldschule Unna"
-                width={116}
-                height={120}
+              <span
                 className="logo-mark"
-                style={{ height: 34 }}
+                role="img"
+                aria-label="Logo der Osterfeldschule Unna"
+                style={{
+                  height: 34,
+                  WebkitMaskImage: `url(${withAssetVersion(`${basePath}/logo.png`)})`,
+                  maskImage: `url(${withAssetVersion(`${basePath}/logo.png`)})`,
+                }}
               />
               <span className="logo-text">
                 <strong>Osterfeldschule</strong>
