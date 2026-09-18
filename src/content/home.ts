@@ -49,17 +49,3 @@ export const leitspruch = {
     "Wie die Welt von morgen aussehen wird, hängt im großen Maße von der Einbildungskraft derer ab, die gerade lesen lernen.",
   autor: "Astrid Lindgren",
 };
-
-// Echte Erfolge aus dem Schulleben statt erfundener Testimonials.
-export const erfolge = {
-  featured: {
-    badge: "Stadtmeisterschaften",
-    quote: "Stadtmeister im Handball – und in einer weiteren Saison Vizestadtmeister.",
-    text: "Dazu starke Platzierungen bei den Stadtmeisterschaften Schwimmen und Leichtathletik.",
-  },
-  card: {
-    badge: "Leseförderung",
-    title: "Vorlesewettbewerb",
-    text: "Jedes Jahr messen sich die besten Vorleser:innen jeder Klasse – in Kooperation mit der Buchhandlung Hornung.",
-  },
-};

@@ -1,11 +1,12 @@
 import { Button } from "@/components/Button";
-import { Badge } from "@/components/Badge";
 import { PlaceholderImage } from "@/components/PlaceholderImage";
 import { Marquee } from "@/components/Marquee";
 import { SectionIntro } from "@/components/SectionIntro";
 import { AltSection } from "@/components/AltSection";
+import { NewsTile } from "@/components/NewsTile";
 import { TypedHeroHeading } from "@/components/TypedHeroHeading";
-import { erfolge, factSections, hero, leitspruch, partners } from "@/content/home";
+import { factSections, hero, leitspruch, partners } from "@/content/home";
+import { aktuellesEintraege } from "@/content/aktuelles";
 
 export default function HomePage() {
   return (
@@ -61,38 +62,15 @@ export default function HomePage() {
 
       {/* AKTUELLES */}
       <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 36 }}>
-        <SectionIntro eyebrow="Aus dem Schulleben" title="Aktuelles" />
-        <div className="split" style={{ gap: 20 }}>
-          <div
-            style={{
-              background: "var(--c-ink)",
-              borderRadius: "var(--radius-l)",
-              padding: 36,
-              display: "flex",
-              flexDirection: "column",
-              gap: 18,
-              color: "#fff",
-            }}
-          >
-            <Badge style={{ background: "rgba(255,255,255,0.12)", color: "#fff" }}>
-              {erfolge.featured.badge}
-            </Badge>
-            <div className="h3" style={{ fontSize: 24, color: "#fff" }}>
-              {erfolge.featured.quote}
-            </div>
-            <p className="body-m" style={{ color: "rgba(255,255,255,0.7)" }}>
-              {erfolge.featured.text}
-            </p>
-          </div>
-          <div className="card">
-            <div className="card-body">
-              <Badge>{erfolge.card.badge}</Badge>
-              <div className="h3">{erfolge.card.title}</div>
-              <p className="body-m">{erfolge.card.text}</p>
-            </div>
-          </div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, flexWrap: "wrap" }}>
+          <SectionIntro eyebrow="Aus dem Schulleben" title="Aktuelles" />
+          <Button href="/aktuelles">Alle Beiträge ansehen</Button>
         </div>
-        <Button href="/aktuelles">Alle Beiträge ansehen</Button>
+        <div className="grid grid-4" style={{ gap: 28 }}>
+          {aktuellesEintraege.slice(0, 4).map((eintrag, index) => (
+            <NewsTile key={eintrag.titel} eintrag={eintrag} index={index} />
+          ))}
+        </div>
       </section>
 
       {/* MARQUEE / SPONSOREN */}
