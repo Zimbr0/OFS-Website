@@ -237,6 +237,38 @@ h3 {
   flex-shrink: 0;
 }
 
+/* ---------- Termine-Liste ---------- */
+
+/* Grid statt Flex: Datum bekommt eine feste Spaltenbreite, damit es bei
+   jedem Eintrag an derselben Stelle links neben dem Inhalt steht – mit Flex
+   (width:auto) entschied die Länge des jeweiligen Beitragstexts uneinheitlich
+   darüber, ob die Zeile umbricht und das Datum stattdessen oben landet. */
+.termin-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+@media (max-width: 640px) {
+  .termin-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+/* Inline-Textlink, z. B. für den Download-Hinweis auf der Termine-Seite */
+.text-link {
+  color: var(--c-primary-deep);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.text-link:hover {
+  color: var(--c-ink);
+}
+
 .check-item {
   display: flex;
   align-items: flex-start;
@@ -983,6 +1015,14 @@ h3 {
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
+}
+
+@media (max-width: 800px) {
+  /* zusätzlich zum .split-Gap (siehe dort), damit die Buttons nicht direkt
+     an das darunter gestapelte Hero-Bild stoßen */
+  .hero-actions {
+    margin-bottom: 20px;
+  }
 }
 
 .page-intro {
