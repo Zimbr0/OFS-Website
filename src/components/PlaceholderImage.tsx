@@ -3,7 +3,7 @@ import { basePath } from "@/lib/basePath";
 import { ShapeAccents } from "@/components/ShapeAccents";
 
 type PlaceholderImageProps = {
-  label: string;
+  label?: string;
   height?: number;
   style?: CSSProperties;
   /** Dateiname unter public/images/, z. B. "hero-schulhof.jpg". */
@@ -46,7 +46,7 @@ export function PlaceholderImage({
         ...style,
       }}
     >
-      <span className="placeholder-tag">{label}</span>
+      {label ? <span className="placeholder-tag">{label}</span> : null}
     </div>
   );
 
@@ -58,7 +58,7 @@ export function PlaceholderImage({
           halterfoto – echtes Foto folgt") dagegen nicht – als Seed daher
           bevorzugt src verwenden, damit benachbarte Bilder unterschiedliche
           Formen bekommen. */}
-      <ShapeAccents seed={src ?? label} index={index} />
+      <ShapeAccents seed={src ?? label ?? ""} index={index} />
       {image}
     </div>
   );

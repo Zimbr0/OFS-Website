@@ -6,7 +6,7 @@ type AltSectionProps = {
   index: number;
   title: string;
   text: string;
-  imageLabel: string;
+  imageLabel?: string;
   imageSrc?: string;
   kategorie?: string;
   datum?: string;
