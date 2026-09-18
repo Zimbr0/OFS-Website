@@ -11,7 +11,6 @@ export default function WirPage() {
   return (
     <>
       <div className="wrap page-intro">
-        <span className="eyebrow">Wir</span>
         <h1 className="h1" style={{ fontSize: "clamp(30px, 4vw, 46px)" }}>
           Das WIR, das uns trägt
         </h1>
@@ -41,7 +40,6 @@ export default function WirPage() {
       <section id="kollegium" className="wrap split section">
         <PlaceholderImage label={`Foto: Kollegium Schuljahr ${kollegium.schuljahr}`} height={420} />
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-          <span className="eyebrow">Unser Kollegium</span>
           <h2 className="h2">Ein Team mit vielen Talenten</h2>
           <p className="body-l" style={{ maxWidth: 560 }}>
             {kollegium.text}
@@ -57,7 +55,7 @@ export default function WirPage() {
       </div>
 
       <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 36 }}>
-        <SectionIntro eyebrow="Wir stellen unsere Arbeit vor" title="Pädagogische Schwerpunkte" />
+        <SectionIntro title="Pädagogische Schwerpunkte" />
         <div className="grid grid-3">
           {schwerpunkteFull.map((item) => {
             const Icon = iconMap[item.icon];

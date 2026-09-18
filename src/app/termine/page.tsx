@@ -7,7 +7,6 @@ export default function TerminePage() {
   return (
     <>
       <div className="wrap page-intro">
-        <span className="eyebrow">Termine</span>
         <h1 className="h1" style={{ fontSize: "clamp(30px, 4vw, 46px)" }}>
           Alle Termine im Blick
         </h1>
