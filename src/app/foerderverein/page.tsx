@@ -6,9 +6,8 @@ export const metadata: Metadata = { title: "Förderverein" };
 
 export default function FoerdervereinPage() {
   return (
-    <section className="wrap split section" style={{ paddingTop: 56 }}>
+    <section className="wrap split section" style={{ paddingTop: 64 }}>
       <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-        <span className="eyebrow">Förderverein</span>
         <h1 className="h1" style={{ fontSize: "clamp(30px, 4vw, 46px)" }}>
           {schoolInfo.foerderverein.name}
         </h1>

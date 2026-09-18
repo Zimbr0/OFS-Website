@@ -13,7 +13,6 @@ export default function BetreuungPage() {
   return (
     <>
       <div className="wrap page-intro">
-        <span className="eyebrow">Betreuung</span>
         <h1 className="h1" style={{ fontSize: "clamp(30px, 4vw, 46px)" }}>
           Betreuungsangebote für jede Familie
         </h1>
@@ -42,7 +41,6 @@ export default function BetreuungPage() {
       <section className="wrap split section">
         <PlaceholderImage label={`Foto: OGS „${ogs.name}“`} height={380} />
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <span className="eyebrow">Unsere OGS</span>
           <h2 className="h2">„{ogs.name}“</h2>
           <p className="body-l" style={{ maxWidth: 520 }}>
             {ogs.herkunft}
@@ -59,7 +57,7 @@ export default function BetreuungPage() {
       </div>
 
       <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 32 }}>
-        <SectionIntro eyebrow="Unsere Haltung" title="Getragen von vier Werten" />
+        <SectionIntro title="Getragen von vier Werten" />
         <div className="grid grid-4">
           {ogs.werte.map((wert) => {
             const Icon = iconMap[wert.icon];
@@ -77,7 +75,7 @@ export default function BetreuungPage() {
       </div>
 
       <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 32 }}>
-        <SectionIntro eyebrow="Tagesablauf" title="OGS-Alltag (Mo–Fr)" />
+        <SectionIntro title="OGS-Alltag (Mo–Fr)" />
         <table className="simple-table">
           <thead>
             <tr>
@@ -104,7 +102,7 @@ export default function BetreuungPage() {
       </div>
 
       <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-        <SectionIntro eyebrow="Angebote" title="AGs in der OGS" />
+        <SectionIntro title="AGs in der OGS" />
         <div className="stat-row">
           {ogs.ags.map((ag) => (
             <Badge key={ag}>{ag}</Badge>
@@ -118,7 +116,7 @@ export default function BetreuungPage() {
       </div>
 
       <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-        <SectionIntro eyebrow="Team" title="Team & Kontakt OGS" />
+        <SectionIntro title="Team & Kontakt OGS" />
         <div className="grid grid-3">
           {ogs.team.map((person) => (
             <div className="tile" key={person.rolle}>
@@ -142,7 +140,7 @@ export default function BetreuungPage() {
       </div>
 
       <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        <SectionIntro eyebrow="Wichtig" title="Anmeldung & Kosten" />
+        <SectionIntro title="Anmeldung & Kosten" />
         <div className="tile" style={{ maxWidth: 720 }}>
           <p className="body-m" style={{ margin: 0 }}>{anmeldungHinweis}</p>
         </div>

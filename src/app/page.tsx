@@ -12,9 +12,8 @@ export default function HomePage() {
   return (
     <>
       {/* HERO */}
-      <section className="wrap split section" style={{ paddingTop: 56 }}>
+      <section className="wrap split section" style={{ paddingTop: 64 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <span className="eyebrow">{hero.eyebrow}</span>
           <TypedHeroHeading />
           <p className="body-l" style={{ maxWidth: 520 }}>
             {hero.intro}
@@ -63,7 +62,7 @@ export default function HomePage() {
       {/* AKTUELLES */}
       <section className="wrap section" style={{ display: "flex", flexDirection: "column", gap: 36 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, flexWrap: "wrap" }}>
-          <SectionIntro eyebrow="Aus dem Schulleben" title="Aktuelles" />
+          <SectionIntro title="Aktuelles" />
           <Button href="/aktuelles">Alle Beiträge ansehen</Button>
         </div>
         <div className="grid grid-4" style={{ gap: 28 }}>

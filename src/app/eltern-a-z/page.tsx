@@ -8,7 +8,6 @@ export default function ElternAZPage() {
   return (
     <>
       <div className="wrap page-intro">
-        <span className="eyebrow">FAQ</span>
         <h1 className="h1" style={{ fontSize: "clamp(30px, 4vw, 46px)" }}>
           Eltern A–Z
         </h1>

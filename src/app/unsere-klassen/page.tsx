@@ -9,13 +9,12 @@ export default function KlassenPage() {
   return (
     <>
       <div className="wrap page-intro">
-        <span className="eyebrow">Schuljahr {klassenSchuljahr}</span>
         <h1 className="h1" style={{ fontSize: "clamp(30px, 4vw, 46px)" }}>
           Unsere Klassen
         </h1>
         <p className="body-l">
-          {schoolInfo.anzahlSchueler} Schüler:innen lernen bei uns in {schoolInfo.anzahlKlassen}{" "}
-          jahrgangsbezogenen Klassen.
+          Im Schuljahr {klassenSchuljahr} lernen {schoolInfo.anzahlSchueler} Schüler:innen bei uns
+          in {schoolInfo.anzahlKlassen} jahrgangsbezogenen Klassen.
         </p>
       </div>
 
