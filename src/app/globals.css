@@ -81,26 +81,6 @@ img {
 
 /* ---------- typography ---------- */
 
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--c-primary-deep);
-}
-
-.eyebrow::before {
-  content: "";
-  width: 18px;
-  height: 1.5px;
-  background: var(--c-primary-deep);
-  display: inline-block;
-  flex-shrink: 0;
-}
-
 h1,
 h2,
 h3 {
@@ -497,7 +477,10 @@ h3 {
 .split {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 56px;
+  /* großzügig genug, damit die über die Bildkante hinausragenden Deko-Formen
+     (siehe .shape-decor, bis zu -10% Versatz) nicht bis an die Nachbarspalte
+     heranreichen; skaliert zwischen 800px-Breakpoint und großen Screens */
+  gap: clamp(56px, 8vw, 96px);
   align-items: center;
 }
 
@@ -927,11 +910,11 @@ h3 {
 }
 
 .page-intro {
-  padding-top: 56px;
+  padding-top: 64px;
   padding-bottom: 8px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 18px;
 }
 
 .page-intro p {

@@ -8,7 +8,6 @@ export default function AktuellesPage() {
   return (
     <>
       <div className="wrap page-intro">
-        <span className="eyebrow">Aktuelles</span>
         <h1 className="h1" style={{ fontSize: "clamp(30px, 4vw, 46px)" }}>
           Aus dem Schulleben
         </h1>
