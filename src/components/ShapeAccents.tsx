@@ -16,30 +16,57 @@ const COLOR_HEX: Record<ShapeColor, string> = {
 };
 
 type ShapeDef = {
+  /** Viewbox – unverändert zur jeweiligen okre.org-Originalform, damit Position/Größe relativ zur Box exakt gleich bleiben. */
   viewBox: string;
-  /** Original-Rect/-Polygon-Markup, "COLOR" wird durch den Hex-Wert ersetzt. */
+  /** Pfad/Rect-Markup, "COLOR" wird durch den Hex-Wert ersetzt. */
   markup: string;
 };
 
-// Eigene, von "OFS" abgeleitete Formfamilie (ersetzt die zuvor von okre.org
-// übernommenen Formen): dieselbe Reduktion, die okre.org bei O-K-R-E nutzt –
-// ein Quadrat, dem 0 oder 1 rechteckige Ecke fehlt. O bleibt das volle
-// Quadrat (wie okre.org es bei E macht), F fehlt die Ecke unten rechts, S
-// ist die horizontal gespiegelte Version davon (Ecke unten links). Alle drei
-// auf demselben quadratischen 150x150-Raster, damit nichts verzerrt wird.
-const SHAPE_O: ShapeDef = {
-  viewBox: "0 0 150 150",
-  markup: `<rect x="0" y="0" width="150" height="150" fill="COLOR"/>`,
+// Quadrat und Kreis bleiben unverändert wie zuvor.
+const SHAPE_BACK_PINK_SQUARE: ShapeDef = {
+  viewBox: "0 0 736 736",
+  markup: `<rect x="156.254" width="600" height="600" transform="rotate(15.0952 156.254 0)" fill="COLOR"/>`,
 };
 
-const SHAPE_F: ShapeDef = {
-  viewBox: "0 0 150 150",
-  markup: `<polygon points="0,0 150,0 150,45 60,45 60,150 0,150" fill="COLOR"/>`,
+const SHAPE_BACK_NAVY_CIRCLE: ShapeDef = {
+  viewBox: "0 0 768 737",
+  markup: `<circle cx="300.039" cy="312.747" r="299.5" fill="COLOR"/>`,
 };
 
-const SHAPE_S: ShapeDef = {
-  viewBox: "0 0 150 150",
-  markup: `<polygon points="0,0 150,0 150,150 90,150 90,45 0,45" fill="COLOR"/>`,
+// Die beiden abstrakten, winkligen "K/R-artigen" Formen von okre.org sind
+// hier durch unsere eigenen Initialen F und S ersetzt (Quadrat mit fehlender
+// Ecke unten rechts bzw. unten links) – das Quadrat und der Kreis bleiben
+// unverändert. Viewbox, Bounding-Box-Größe/-Position innerhalb der Viewbox,
+// Ecke, Farbe und Timing sind exakt wie bei der zuvor dort sitzenden Form
+// (blue-star bzw. turquoise-hook) übernommen, damit sich am Erscheinungsbild
+// sonst nichts ändert.
+const SHAPE_BACK_F: ShapeDef = {
+  viewBox: "0 0 760 737",
+  markup: `<polygon points="0.555,32.137 704.521,32.137 704.521,243.297 282.142,243.297 282.142,736.004 0.555,736.004" fill="COLOR"/>`,
+};
+
+const SHAPE_BACK_S: ShapeDef = {
+  viewBox: "0 0 759 789",
+  markup: `<polygon points="207,14.018 758.135,14.018 758.135,533.135 537.681,533.135 537.681,169.753 207,169.753" fill="COLOR"/>`,
+};
+
+// Original-Canvas (734x727) bewusst NICHT zugeschnitten: die exakte
+// Position der Form kommt gerade daher, dass sie innerhalb dieses vollen
+// Canvas an genau dieser Stelle sitzt und die Box (s.u.) sie entsprechend
+// ausschnitthaft zeigt.
+const SHAPE_FRONT_F: ShapeDef = {
+  viewBox: "0 0 734 727",
+  markup: `<polygon points="159,543.033 342.712,543.033 342.712,598.137 232.485,598.137 232.485,726.712 159,726.712" fill="COLOR"/>`,
+};
+
+const SHAPE_FRONT_S: ShapeDef = {
+  viewBox: "0 0 734 727",
+  markup: `<polygon points="73.869,580.538 220.839,580.538 220.839,718.969 162.051,718.969 162.051,622.067 73.869,622.067" fill="COLOR"/>`,
+};
+
+const SHAPE_FRONT_PINK_SQUARE: ShapeDef = {
+  viewBox: "0 0 734 727",
+  markup: `<rect x="494.792" y="550" width="138.291" height="138.291" transform="rotate(15 494.792 550)" fill="COLOR"/>`,
 };
 
 type ShapeSpec = {
@@ -47,41 +74,33 @@ type ShapeSpec = {
   shape: ShapeDef;
   color: ShapeColor;
   corner: Corner;
-  /** Größe in % der Fotobreite/-höhe. */
-  size: number;
   delay?: number;
 };
 
-// Sechs Kombinationen aus je zwei der drei OFS-Formen (nie zweimal dieselbe
-// im selben Bild), Ecken und Farben abwechselnd. Position/Versatz folgen
-// weiter dem okre.org-Mechanismus (Box in Fotogröße, 10% über die Kante
-// hinaus versetzt) – die Formen selbst sind jetzt aber randlos auf ihrem
-// eigenen Quadrat, darum deutlich kleiner skaliert (sonst würde eine Form
-// fast das ganze Foto bedecken).
+// Wie zuvor: fünf Formkombinationen (welche Form liegt hinten/vorne, welche
+// Ecke, welche Farbe) – unverändert bis auf den Tausch der beiden
+// abstrakten Formen gegen F und S. Größe/Position bei allen identisch
+// (siehe CSS: width/height 100%, Versatz -10%).
 const VARIANTS: ShapeSpec[][] = [
   [
-    { layer: "back", shape: SHAPE_O, color: "gray", corner: "top-right", size: 48, delay: 0 },
-    { layer: "front", shape: SHAPE_F, color: "green", corner: "bottom-left", size: 42, delay: 0.5 },
+    { layer: "back", shape: SHAPE_BACK_PINK_SQUARE, color: "gray", corner: "top-right", delay: 0 },
+    { layer: "front", shape: SHAPE_FRONT_F, color: "green", corner: "bottom-left", delay: 0.5 },
   ],
   [
-    { layer: "back", shape: SHAPE_F, color: "green", corner: "top-left", size: 46, delay: 0 },
-    { layer: "front", shape: SHAPE_S, color: "gray", corner: "bottom-left", size: 40, delay: 0.5 },
+    { layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "green", corner: "top-left", delay: 0 },
+    { layer: "front", shape: SHAPE_FRONT_S, color: "gray", corner: "bottom-left", delay: 0.5 },
   ],
   [
-    { layer: "back", shape: SHAPE_S, color: "gray", corner: "top-right", size: 50, delay: 0 },
-    { layer: "front", shape: SHAPE_O, color: "green", corner: "bottom-right", size: 38, delay: 0.5 },
+    { layer: "back", shape: SHAPE_BACK_S, color: "gray", corner: "top-right", delay: 0 },
+    { layer: "front", shape: SHAPE_FRONT_PINK_SQUARE, color: "green", corner: "bottom-right", delay: 0.5 },
   ],
   [
-    { layer: "back", shape: SHAPE_O, color: "green", corner: "top-left", size: 44, delay: 0 },
-    { layer: "front", shape: SHAPE_S, color: "gray", corner: "bottom-right", size: 42, delay: 0.5 },
+    { layer: "back", shape: SHAPE_BACK_F, color: "green", corner: "top-right", delay: 0 },
+    { layer: "front", shape: SHAPE_FRONT_S, color: "gray", corner: "bottom-left", delay: 0.5 },
   ],
   [
-    { layer: "back", shape: SHAPE_F, color: "gray", corner: "top-right", size: 48, delay: 0 },
-    { layer: "front", shape: SHAPE_O, color: "green", corner: "bottom-left", size: 40, delay: 0.5 },
-  ],
-  [
-    { layer: "back", shape: SHAPE_S, color: "green", corner: "top-left", size: 46, delay: 0 },
-    { layer: "front", shape: SHAPE_F, color: "gray", corner: "bottom-right", size: 40, delay: 0.5 },
+    { layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "gray", corner: "top-left", delay: 0 },
+    { layer: "front", shape: SHAPE_FRONT_PINK_SQUARE, color: "green", corner: "bottom-right", delay: 0.5 },
   ],
 ];
 
@@ -101,8 +120,12 @@ function shapeBackgroundUrl(shape: ShapeDef, color: ShapeColor) {
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
 
-// Zwei OFS-Formen pro Bild: eine liegt hinter dem Foto und schaut nur an der
-// Kante hervor, die andere liegt sichtbar über dem Foto. Beide schieben sich
+// Zwei Formen pro Bild – exakt wie bei okre.org: eine liegt hinter dem Foto
+// und schaut nur an der Kante hervor, die andere liegt sichtbar über dem
+// Foto. Beide Boxen sind exakt so groß wie das Foto selbst (100%/100%) und
+// um 10% über die jeweilige Kante hinaus versetzt; die Form füllt die Box
+// nur zu einem Teil (kommt aus ihrem eigenen, größeren Original-Canvas),
+// wodurch der bekannte "Ecken-Peek"-Effekt entsteht. Beide schieben sich
 // von unten kommend ein, sobald das Bild beim Scrollen sichtbar wird.
 // `index` sorgt dafür, dass aufeinanderfolgende Bilder nie dieselbe
 // Kombination bekommen.
@@ -135,8 +158,6 @@ export function ShapeAccents({ seed, index }: { seed: string; index?: number }) 
     <div ref={ref} className="shape-accents" aria-hidden="true">
       {variant.map((spec, i) => {
         const style: CSSProperties = {
-          width: `${spec.size}%`,
-          height: `${spec.size}%`,
           backgroundImage: shapeBackgroundUrl(spec.shape, spec.color),
           "--shape-delay": `${spec.delay ?? 0}s`,
         } as CSSProperties;
