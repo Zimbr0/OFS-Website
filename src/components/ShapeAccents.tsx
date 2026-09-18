@@ -11,8 +11,8 @@ type Layer = "back" | "front";
 // Als Hex nötig, weil die Farbe in eine SVG-Data-URI eingebacken wird
 // (background-image kann keine CSS-Variablen/currentColor auflösen).
 const COLOR_HEX: Record<ShapeColor, string> = {
-  green: "#5d7315",
-  gray: "#e3e6dd",
+  green: "#a1c67d",
+  gray: "#d0c89e",
 };
 
 type ShapeDef = {
