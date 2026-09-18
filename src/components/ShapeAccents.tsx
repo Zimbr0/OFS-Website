@@ -5,7 +5,7 @@ import type { CSSProperties } from "react";
 
 type ShapeColor = "green" | "gray";
 type Corner = "top-left" | "top-right" | "bottom-left" | "bottom-right";
-type Layer = "back" | "front";
+type Layer = "back";
 
 // Müssen mit --c-primary / --c-shape-gray in globals.css übereinstimmen.
 // Als Hex nötig, weil die Farbe in eine SVG-Data-URI eingebacken wird
@@ -42,25 +42,6 @@ const SHAPE_BACK_TURQUOISE_HOOK: ShapeDef = {
   markup: `<path d="M641.667 533.135L758.135 98.4686L579.421 50.5821C442.962 14.0183 349.449 56.0781 323.03 154.675C309.241 206.138 320.09 256.236 355.212 296.212L207 416.667L641.667 533.135Z" fill="COLOR"/>`,
 };
 
-// Original-Canvas (734x727) bewusst NICHT zugeschnitten: die exakte
-// Position der Form kommt gerade daher, dass sie innerhalb dieses vollen
-// Canvas an genau dieser Stelle sitzt und die Box (s.u.) sie entsprechend
-// ausschnitthaft zeigt.
-const SHAPE_FRONT_BLUE_ARROW: ShapeDef = {
-  viewBox: "0 0 734 727",
-  markup: `<path d="M197.823 726.712L159 581.823L303.765 543.033L273.06 633.676L342.712 687.889L197.823 726.712Z" fill="COLOR"/>`,
-};
-
-const SHAPE_FRONT_TURQUOISE_FLAG: ShapeDef = {
-  viewBox: "0 0 734 727",
-  markup: `<path d="M104.927 718.969L73.8692 603.058L121.526 590.289C157.915 580.538 182.852 591.754 189.897 618.047C193.574 631.77 190.681 645.13 181.315 655.79L220.839 687.911L104.927 718.969Z" fill="COLOR"/>`,
-};
-
-const SHAPE_FRONT_PINK_SQUARE: ShapeDef = {
-  viewBox: "0 0 734 727",
-  markup: `<rect x="494.792" y="550" width="138.291" height="138.291" transform="rotate(15 494.792 550)" fill="COLOR"/>`,
-};
-
 type ShapeSpec = {
   layer: Layer;
   shape: ShapeDef;
@@ -69,32 +50,17 @@ type ShapeSpec = {
   delay?: number;
 };
 
-// Die fünf Formkombinationen von okre.org 1:1 übernommen (welche Form liegt
-// hinten/vorne, welche Ecke) – nur mit unseren Farben statt ihrer
-// Markenfarben. Größe/Position sind bei allen identisch (siehe CSS:
-// width/height 100%, Versatz -10%), exakt wie im Original-CSS
-// (.mediaimg__img--shapes::before/::after).
+// Von den fünf Formkombinationen von okre.org übernehmen wir nur die
+// hintere Form je Kombination (schaut nur an der Kante hervor) – die vordere,
+// über dem Foto liegende Form wurde bewusst entfernt. Größe/Position sind
+// bei allen identisch (siehe CSS: width/height 100%, Versatz -10%), exakt
+// wie im Original-CSS (.mediaimg__img--shapes::before).
 const VARIANTS: ShapeSpec[][] = [
-  [
-    { layer: "back", shape: SHAPE_BACK_PINK_SQUARE, color: "gray", corner: "top-right", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_BLUE_ARROW, color: "green", corner: "bottom-left", delay: 0.5 },
-  ],
-  [
-    { layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "green", corner: "top-left", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_TURQUOISE_FLAG, color: "gray", corner: "bottom-left", delay: 0.5 },
-  ],
-  [
-    { layer: "back", shape: SHAPE_BACK_TURQUOISE_HOOK, color: "gray", corner: "top-right", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_PINK_SQUARE, color: "green", corner: "bottom-right", delay: 0.5 },
-  ],
-  [
-    { layer: "back", shape: SHAPE_BACK_BLUE_STAR, color: "green", corner: "top-right", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_TURQUOISE_FLAG, color: "gray", corner: "bottom-left", delay: 0.5 },
-  ],
-  [
-    { layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "gray", corner: "top-left", delay: 0 },
-    { layer: "front", shape: SHAPE_FRONT_PINK_SQUARE, color: "green", corner: "bottom-right", delay: 0.5 },
-  ],
+  [{ layer: "back", shape: SHAPE_BACK_PINK_SQUARE, color: "gray", corner: "top-right", delay: 0 }],
+  [{ layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "green", corner: "top-left", delay: 0 }],
+  [{ layer: "back", shape: SHAPE_BACK_TURQUOISE_HOOK, color: "gray", corner: "top-right", delay: 0 }],
+  [{ layer: "back", shape: SHAPE_BACK_BLUE_STAR, color: "green", corner: "top-right", delay: 0 }],
+  [{ layer: "back", shape: SHAPE_BACK_NAVY_CIRCLE, color: "gray", corner: "top-left", delay: 0 }],
 ];
 
 function variantIndexFor(seed: string) {
@@ -113,15 +79,13 @@ function shapeBackgroundUrl(shape: ShapeDef, color: ShapeColor) {
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
 
-// Zwei Formen pro Bild – exakt wie bei okre.org: eine liegt hinter dem Foto
-// und schaut nur an der Kante hervor, die andere liegt sichtbar über dem
-// Foto. Beide Boxen sind exakt so groß wie das Foto selbst (100%/100%) und
-// um 10% über die jeweilige Kante hinaus versetzt; die Form füllt die Box
-// nur zu einem Teil (kommt aus ihrem eigenen, größeren Original-Canvas),
-// wodurch der bekannte "Ecken-Peek"-Effekt entsteht. Beide schieben sich
-// von unten kommend ein, sobald das Bild beim Scrollen sichtbar wird.
-// `index` sorgt dafür, dass aufeinanderfolgende Bilder nie dieselbe
-// Kombination bekommen.
+// Eine Form pro Bild, liegt hinter dem Foto und schaut nur an einer Ecke
+// hervor. Die Box ist exakt so groß wie das Foto selbst (100%/100%) und um
+// 10% über die jeweilige Kante hinaus versetzt; die Form füllt die Box nur
+// zu einem Teil (kommt aus ihrem eigenen, größeren Original-Canvas), wodurch
+// der bekannte "Ecken-Peek"-Effekt entsteht. Sie schiebt sich von unten
+// kommend ein, sobald das Bild beim Scrollen sichtbar wird. `index` sorgt
+// dafür, dass aufeinanderfolgende Bilder nie dieselbe Form bekommen.
 export function ShapeAccents({ seed, index }: { seed: string; index?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);

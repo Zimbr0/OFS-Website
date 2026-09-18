@@ -16,12 +16,7 @@ export function NewsTile({ eintrag, index }: NewsTileProps) {
   return (
     <Reveal delay={(index % 4) * 0.06}>
       <Link href="/aktuelles" className="news-tile">
-        <PlaceholderImage
-          label={eintrag.imageLabel}
-          decorate={false}
-          height={260}
-          style={{ borderRadius: "var(--radius-m)" }}
-        />
+        <PlaceholderImage decorate={false} height={260} />
         <div className="news-tile-body">
           <span className="news-tile-category">{eintrag.kategorie}</span>
           <h3 className="news-tile-title">{eintrag.titel}</h3>

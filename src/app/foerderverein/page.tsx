@@ -21,7 +21,7 @@ export default function FoerdervereinPage() {
           folgen in Kürze.
         </p>
       </div>
-      <PlaceholderImage label="Foto: Förderverein-Aktion" height={360} />
+      <PlaceholderImage height={360} />
     </section>
   );
 }
