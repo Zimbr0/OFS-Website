@@ -304,6 +304,54 @@ h3 {
   }
 }
 
+/* ---------- news grid ("Aktuelles", Latest-News-Kachel-Stil wie okre.org) ---------- */
+
+.news-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: var(--radius-l);
+  transition: transform 0.2s ease;
+}
+
+.news-tile:hover {
+  transform: translateY(-4px);
+}
+
+.news-tile-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 2px;
+}
+
+.news-tile-category {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-primary-deep);
+}
+
+.news-tile-title {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+  color: var(--c-ink);
+  transition: color 0.15s ease;
+}
+
+.news-tile:hover .news-tile-title {
+  color: var(--c-primary-deep);
+}
+
+.news-tile-meta {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-ink-soft);
+}
+
 /* ---------- placeholder images ---------- */
 
 .placeholder-img {
