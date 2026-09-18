@@ -9,6 +9,20 @@
   --c-secondary: #2e7d63;
   --c-secondary-soft: #e3efe8;
 
+  --c-primary: #a1c67d;
+  --c-primary-soft: #d9e6c2;
+
+  /* Backup-Palette: Reserve für die Website, falls später passende
+     Farben gesucht werden. Aktuell ungenutzt. */
+  --c-palette-2: #a3d68e;
+  --c-palette-3: #b3e6a0;
+  --c-palette-4: #c6e7b1;
+  --c-palette-5: #d9e6c2;
+  --c-palette-6: #d0c89e;
+  --c-palette-7: #b6a875;
+  --c-palette-8: #9a8b5d;
+  --c-palette-9: #4d7330;
+
   --radius-l: 28px;
   --radius-m: 18px;
   --radius-pill: 999px;
@@ -145,13 +159,13 @@ h3 {
 
 .btn-primary {
   border: none;
-  background: linear-gradient(135deg, var(--c-accent-a), var(--c-accent-b));
+  background: linear-gradient(135deg, var(--c-primary-soft), var(--c-primary));
   color: var(--c-ink);
 }
 
 .btn-primary .btn-icon {
   background: var(--c-ink);
-  color: var(--c-accent-a);
+  color: var(--c-primary);
 }
 
 .btn-sm {
